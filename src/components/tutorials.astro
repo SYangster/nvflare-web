@@ -1,0 +1,167 @@
+---
+const tutorials = [
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-bot",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-user",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-bot",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1", "tag2"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "Lorem Ipsum Title",
+    tags: ["tag1"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-user",
+  },
+];
+---
+
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mt-16 md:mt-0 text-center">
+      <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
+        Advanced Tutorials
+      </h2>
+      <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
+        Designed for developers who have already mastered the basics, these
+        tutorials delve into more complex topics and techniques to help you
+        optimize your federated learning implementations.
+      </p>
+    </div>
+
+    <!-- Grid setup for all tutorials -->
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+      {
+        tutorials.map((item, index) => (
+          <div
+            class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 6 ? "hidden extra-tutorial" : ""}`}>
+            <div>
+              <h3 class="font-semibold text-md px-4 pt-2 text-lg">
+                {item.title}
+              </h3>
+              <div class="px-4 py-2 gap-x-2 flex items-center">
+                {item.tags.map((tag) => (
+                  <span class="inline-flex rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <p class="text-slate-500 mt-2 leading-relaxed px-4 pb-2">
+                {item.description}
+              </p>
+              <div class="flex justify-center border-t border-gray-200">
+                <a
+                  href="#"
+                  class="items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                  Go to Tutorial
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-10 flex justify-center">
+      <button
+        type="button"
+        id="toggle-button"
+        class="flex items-center text-base font-medium tracking-tight text-slate-900 hover:text-slate-700"
+        onclick="toggleTutorials()"
+        >See more<svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="ml-2 h-6 w-6"
+          ><path
+            d="m17 14-5 5-5-5M12 18.5V5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        ></button
+      >
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function toggleTutorials() {
+    const extraTutorials = document.querySelectorAll(".extra-tutorial");
+    const buttonText = document.querySelector("#toggle-button");
+    extraTutorials.forEach((tut) => {
+      tut.classList.toggle("hidden");
+    });
+    buttonText.classList.toggle("hidden");
+  }
+</script>
