@@ -6,34 +6,110 @@ import "prismjs/components/prism-python.js";
 import "prismjs/themes/prism.css";
 
 const clientCode = `
-# Example Python function to calculate factorial
-def factorial(n):
-    if n == 0:
-        return 1
-    else:
-        return n * factorial(n-1)
+# import nvflare client API
+import nvflare.client as flare
 
-# Test the function
-print(factorial(5))
+# initialize NVFlare client API
+flare.init()
+
+# run continuously when launching once
+while flare.is_running():
+
+  # receive FLModel from NVFlare
+  input_model = flare.receive()
+
+  # loads model from NVFlare
+  net.load_state_dict(input_model.params)
+
+  # perform local training and evaluation on received model
+  {existing centralized deep learning code} ...
+
+  # construct output FLModel
+  output_model = flare.FLModel(
+      params=net.cpu().state_dict(),
+      metrics={"accuracy": accuracy},
+      meta={"NUM_STEPS_CURRENT_ROUND": steps},
+  )
+
+  # send model back to NVFlare
+  flare.send(output_model)
 `;
 
 const serverCode = `
-# Python function to reverse a string
-def reverse_string(s):
-    return s[::-1]
+class FedAvg(BaseFedAvg):
+    def run(self) -> None:
+        self.info("Start FedAvg.")
 
-# Sample usage
-sample_string = "Hello, world!"
-print(reverse_string(sample_string))
+        model = self.load_model()
+        model.start_round = self.start_round
+        model.total_rounds = self.num_rounds
+
+        for self.current_round in range(self.start_round, self.start_round + self.num_rounds):
+            self.info(f"Round {self.current_round} started.")
+            model.current_round = self.current_round
+
+            clients = self.sample_clients(self.min_clients)
+
+            results = self.send_model_and_wait(targets=clients, data=model)
+
+            aggregate_results = self.aggregate(
+                results, aggregate_fn=None
+            )
+
+            model = self.update_model(model, aggregate_results)
+
+            self.save_model(model)
+
+        self.info("Finished FedAvg.")
 `;
 
 const configCode = `
-{
-  "id": 1,
-  "name": "Lorem Ipsum",
-  "status": "Active",
-  "tags": ["ex", "et", "tempor"]
-}
+class HelloPTJob:
+    def __init__(self) -> None:
+        super().__init__()
+        self.job = self.define_job()
+
+    def define_job(self) -> FedJobConfig:
+        # job = FedJobConfig(job_name="hello-pt", min_clients=2, mandatory_clients="site-1")
+        job: FedJobConfig = FedJobConfig(job_name="hello-pt", min_clients=2)
+
+        server_app = self._create_server_app()
+        client_app = self._create_client_app()
+
+        app = FedAppConfig(server_app=server_app, client_app=client_app)
+        job.add_fed_app("app", app)
+        job.set_site_app("@ALL", "app")
+
+        return job
+
+    def _create_client_app(self):
+        client_app = ClientAppConfig()
+        executor = PTInProcessClientAPIExecutor(task_script_path="train.py")
+        client_app.add_executor(["train"], executor)
+
+        return client_app
+
+    def _create_server_app(self):
+        server_app = ServerAppConfig()
+        server_app.add_workflow("pre_train", controller)
+        controller = FedAvg(min_clients=2, num_rounds=2, persistor_id="persistor")
+        server_app.add_workflow("fed_avg", controller)
+        component = PTFileModelPersistor()
+        server_app.add_component("persistor", component)
+
+        return server_app
+
+    def export_job(self, job_root):
+        self.job.generate_job_config(job_root)
+
+    def simulator_run(self, job_root, workspace):
+        self.job.simulator_run(job_root, workspace, threads=2)
+
+    if __name__ == "__main__":
+        job = HelloPTJob()
+
+        # job.export_job("/tmp/nvflare/jobs")
+        job.simulator_run("/tmp/nvflare/jobs", "/tmp/nvflare/simulator_workspace")
 `;
 
 const highlightedClientCode = Prism.highlight(
@@ -58,7 +134,7 @@ const highlightedConfigCode = Prism.highlight(
     <div class="mx-auto max-w-4xl text-center">
       <h2
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-gray-900">
-        Using NVIDIA FLARE
+        Getting Started
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
@@ -68,7 +144,7 @@ const highlightedConfigCode = Prism.highlight(
     </div>
 
     <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Client Code</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Client Code (train.py)</h2>
       <p class="text-slate-900 mb-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
         elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
@@ -81,7 +157,7 @@ const highlightedConfigCode = Prism.highlight(
     </div>
 
     <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Server Code</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Workflow Code (fedavg.py)</h2>
       <p class="text-slate-900 mb-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
         elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
@@ -94,9 +170,9 @@ const highlightedConfigCode = Prism.highlight(
     </div>
 
     <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Config Code</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Job Construction Code (hello_pt_job.py)</h2>
       <p class="text-slate-900 mb-4">
-        This snippet shows how to create a configuration file for a NVIDIA FLARE
+        This snippet shows how to create a job for a NVIDIA FLARE
         application, specifying server details and client parameters.
       </p>
       <pre

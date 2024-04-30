@@ -1,15 +1,64 @@
 ---
 const tutorials = [
   {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
+    title: "Introduction to the FL Simulator",
+    tags: ["beginner", "tools"],
+    description:
+      "Learn how to use the FLARE Simulator to run local federated learning simulations, enabling you to test and debug your code before deploying it in a real-world setting.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "Exploring the FLARE API",
+    tags: ["beginner", "tools"],
+    description:
+      "Familiarize yourself with the various commands and functionalities of the FLARE API, which allows you to programmatically control and customize your federated learning setup.",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "Utilizing FLARE in POC Mode",
+    tags: ["beginner", "tools"],
+    description:
+      "Discover how to leverage NVIDIA FLARE's POC (Proof of Concept) mode to rapidly prototype and validate your federated learning models, accelerating the development process.",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Mastering the FLARE Job CLI",
+    tags: ["beginner", "tools"],
+    description:
+      "Gain proficiency in using the Job CLI (Command Line Interface) to efficiently manage, monitor, and troubleshoot your federated learning jobs, streamlining your workflow.",
+    icon: "bx:bxs-bot",
+  },
+  {
+    title: "Step-by-Step Examples",
+    tags: ["beginner", "example"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "Federated Learning with CIFAR-10",
+    tags: ["intermediate", "PyTorch"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-file-find",
+  },
+  {
+    title: "Federated Learning with Differential Privacy for BraTS18 segmentation",
+    tags: ["advanced", "differential-privacy", "medical-imaging"],
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    icon: "bx:bxs-user",
+  },
+  {
+    title: "Financial Application with Federated XGBoost Methods",
+    tags: ["advanced", "xgboost", "finance"],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
     icon: "bx:bxs-briefcase",
   },
   {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
+    title: "LLM Tuning via HuggingFace SFT Trainer",
+    tags: ["advanced", "LLM", "HuggingFace"],
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
     icon: "bx:bxs-window-alt",
@@ -34,55 +83,6 @@ const tutorials = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
     icon: "bx:bxs-file-find",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-user",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-briefcase",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-window-alt",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-data",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-bot",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1", "tag2"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-file-find",
-  },
-  {
-    title: "Lorem Ipsum Title",
-    tags: ["tag1"],
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    icon: "bx:bxs-user",
   },
 ];
 ---
@@ -91,12 +91,11 @@ const tutorials = [
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mt-16 md:mt-0 text-center">
       <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-        Advanced Tutorials
+        Tutorials & Examples
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
-        Designed for developers who have already mastered the basics, these
-        tutorials delve into more complex topics and techniques to help you
-        optimize your federated learning implementations.
+        Explore our extensive catalog of tutorials and examples covering everything
+        from the core features of FLARE to various advanced examples across different applications.
       </p>
     </div>
 
