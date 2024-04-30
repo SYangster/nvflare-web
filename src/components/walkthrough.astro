@@ -1,33 +1,40 @@
 ---
 // @ts-ignore
 
-const gettingStarted = [
+const walkthrough = [
   {
     step: "Step 1",
-    title: "Introduction to the FL Simulator",
+    title: "Introduction to FLARE",
     description:
-      "Learn how to use the FLARE Simulator to run local federated learning simulations, enabling you to test and debug your code before deploying it in a real-world setting.",
-    link: "https://github.com/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
   },
   {
     step: "Step 2",
-    title: "Exploring the API",
+    title: "Client: Converting training code to FL training code",
     description:
-      "Familiarize yourself with the various commands and functionalities of the FLARE API, which allows you to programmatically control and customize your federated learning setup.",
-    link: "#",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://github.com/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
   },
   {
     step: "Step 3",
-    title: "Utilizing FLARE in POC Mode",
+    title: "Server: Defining Federated workflow controller",
     description:
-      "Discover how to leverage NVIDIA FLARE's POC (Proof of Concept) mode to rapidly prototype and validate your federated learning models, accelerating the development process.",
-    link: "#",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "",
   },
   {
     step: "Step 4",
-    title: "Mastering the FLARE Job CLI",
+    title: "Create job and run simulation",
     description:
-      "Gain proficiency in using the Job CLI (Command Line Interface) to efficiently manage, monitor, and troubleshoot your federated learning jobs, streamlining your workflow.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "#",
+  },
+  {
+    step: "Step 5",
+    title: "Running Federated Learning Job in the real world",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
     link: "#",
   },
 ];
@@ -37,7 +44,7 @@ const gettingStarted = [
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mt-16 md:mt-0 text-center">
       <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-        Getting Started
+        Walk-through
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
         Begin your NVIDIA FLARE journey by following these step-by-step guides
@@ -46,9 +53,9 @@ const gettingStarted = [
     </div>
 
     <div
-      class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-4 pt-12">
+      class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-5 pt-12">
       {
-        gettingStarted.map((item) => (
+        walkthrough.map((item) => (
           <div>
             <span class="flex items-center text-sm font-semibold leading-6 text-nvidia">
               {item.step}
