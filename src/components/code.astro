@@ -2,8 +2,16 @@
 // Import Prism to enable syntax highlighting
 import Prism from "prismjs";
 import "prismjs/components/prism-python.js";
+import "prismjs/components/prism-bash.js"
 // Directly import Prism CSS
 import "prismjs/themes/prism.css";
+import "prismjs/plugins/toolbar/prism-toolbar.min.css";
+import "prismjs/plugins/toolbar/prism-toolbar.min";
+import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
+
+const installCode = `
+pip install nvflare
+`;
 
 const clientCode = `
 # import nvflare client API
@@ -112,6 +120,11 @@ class HelloPTJob:
         job.simulator_run("/tmp/nvflare/jobs", "/tmp/nvflare/simulator_workspace")
 `;
 
+const highlightedInstallCode = Prism.highlight(
+  installCode,
+  Prism.languages.bash,
+  "bash"
+);
 const highlightedClientCode = Prism.highlight(
   clientCode,
   Prism.languages.python,
@@ -129,7 +142,7 @@ const highlightedConfigCode = Prism.highlight(
 );
 ---
 
-<div class="bg-nvidia-light py-24 sm:py-32">
+<div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
       <h2
@@ -141,8 +154,20 @@ const highlightedConfigCode = Prism.highlight(
         elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
         ex malesuada commodo.
       </p>
+      
     </div>
 
+    <div class="mx-auto max-w-4xl py-4 text-left">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Installation</h2>
+      <p class="text-slate-900 mb-4">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
+        elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
+        ex malesuada commodo.
+      </p>
+      <pre
+        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
+        set:html={highlightedInstallCode}
+      />
     <div class="mx-auto max-w-4xl py-4 text-left">
       <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Client Code (train.py)</h2>
       <p class="text-slate-900 mb-4">
@@ -151,7 +176,7 @@ const highlightedConfigCode = Prism.highlight(
         ex malesuada commodo.
       </p>
       <pre
-        class="rounded bg-slate-200 p-4 text-sm text-pretty"
+        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
         set:html={highlightedClientCode}
       />
     </div>
@@ -164,7 +189,7 @@ const highlightedConfigCode = Prism.highlight(
         ex malesuada commodo.
       </p>
       <pre
-        class="rounded bg-slate-200 p-4 text-sm text-pretty"
+        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
         set:html={highlightedServerCode}
       />
     </div>
@@ -176,7 +201,7 @@ const highlightedConfigCode = Prism.highlight(
         application, specifying server details and client parameters.
       </p>
       <pre
-        class="rounded bg-slate-200 p-4 text-sm text-pretty"
+        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty" 
         set:html={highlightedConfigCode}
       />
     </div>

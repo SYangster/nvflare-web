@@ -3,7 +3,7 @@ import NvidiaLogo from '../images/nvidia_eye.png'
 ---
 <div class="bg-white">
   <div
-    class="relative isolate overflow-hidden bg-gradient-to-b from-green-100/20">
+    class="relative isolate overflow-hidden bg-gradient-to-b from-0% from-nvidia-light-test">
     <div
       class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-12">
       <div class="px-6 lg:px-0 lg:pt-4">
@@ -87,29 +87,29 @@ import NvidiaLogo from '../images/nvidia_eye.png'
                       <code>
                         {`# import nvflare client API
                           import nvflare.client as flare
-                          
+
                           # initialize NVFlare client API
                           flare.init()
-                          
+
                           # run continuously when launching once
                           while flare.is_running():
-                          
+
                             # receive FLModel from NVFlare
                             input_model = flare.receive()
-                          
+
                             # loads model from NVFlare
                             net.load_state_dict(input_model.params)
-                          
+
                             # perform local training and evaluation on received model
                             {existing centralized deep learning code} ...
-                          
+
                             # construct output FLModel
                             output_model = flare.FLModel(
                                 params=net.cpu().state_dict(),
                                 metrics={"accuracy": accuracy},
                                 meta={"NUM_STEPS_CURRENT_ROUND": steps},
                             )
-                          
+
                             # send model back to NVFlare
                             flare.send(output_model)
                         `}
