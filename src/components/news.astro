@@ -6,7 +6,7 @@ const blogs = [
     title: "Blogs and Articles",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
-    link: "#",
+    link: "https://developer.nvidia.com/blog/tag/federated-learning",
   },
   {
     title: "Events",
@@ -21,13 +21,40 @@ const blogs = [
     link: "#",
   },
 ];
+
+const learnMore = [
+  {
+    title: "What is Federated Learning?",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://blogs.nvidia.com/blog/what-is-federated-learning/",
+  },
+  {
+    title: "FLARE Design and Features",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://nvflare.readthedocs.io/en/main/flare_overview.html",
+  },
+  {
+    title: "Blogs & Articles",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://developer.nvidia.com/blog/tag/federated-learning",
+  },
+  {
+    title: "Connect with Us",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    link: "https://github.com/NVIDIA/NVFlare/discussions",
+  },
+];
 ---
 
 <div class="bg-gray-100 py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:mx-0">
       <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        News
+        Learn More
       </h2>
       <p class="mt-2 text-lg leading-8 text-gray-600">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -35,9 +62,9 @@ const blogs = [
     </div>
 
     <div
-      class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-slate-400 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-slate-400 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-4">
       {
-        blogs.map((item) => (
+        learnMore.map((item) => (
           <article class="flex max-w-xl flex-col items-start justify-between border-l border-slate-400 pl-6">
             <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
               <a href="#">{item.title}</a>
@@ -47,7 +74,7 @@ const blogs = [
             </p>
             <p class="mt-6">
               <a
-                href="#"
+                href={item.link}
                 class="text-sm font-semibold leading-6 text-green-600">
                 Read more <span aria-hidden="true">→</span>
               </a>

@@ -1,9 +1,33 @@
 ---
+import Prism from "prismjs";
+import "prismjs/components/prism-python.js";
+import "prismjs/themes/prism.css";
+
 import NvidiaLogo from '../images/nvidia_eye.png'
+import NvflareGraphic from '../images/nvflare_graphic.jpeg'
+
+
+const installCode = `
+
+            from nvflare.client import flare
+
+            flare.init()
+
+            input_model = flare.receive()
+
+            flare.send(output_model)
+
+`;
+
+const highlightedInstallCode = Prism.highlight(
+  installCode,
+  Prism.languages.python,
+  "python"
+);
 ---
 <div class="bg-white">
   <div
-    class="relative isolate overflow-hidden bg-gradient-to-b from-green-100/20">
+    class="relative isolate overflow-hidden bg-white">
     <div
       class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-12">
       <div class="px-6 lg:px-0 lg:pt-4">
@@ -68,7 +92,7 @@ import NvidiaLogo from '../images/nvidia_eye.png'
             class="bg-nvidia [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
             <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
               <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
-                <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900">
+                <div class="w-screen overflow-hidden rounded-tl-xl bg-black">
                   <div class="flex bg-gray-800/40 ring-1 ring-white/5">
                     <div
                       class="-mb-px flex text-sm font-medium leading-6 text-gray-400">
@@ -79,66 +103,17 @@ import NvidiaLogo from '../images/nvidia_eye.png'
                       <div class="border-r border-gray-600/10 px-4 py-2">
                         fedavg.py
                       </div>
+                      <div class="border-r border-gray-600/10 px-4 py-2">
+                        hello_pt_job.py
+                      </div>
                     </div>
                   </div>
                   <pre
-                    class="-ml-12 text-[0.8125rem] leading-2 text-gray-300"
-                    style="tab-size: 2">
-                      <code>
-                        {`# import nvflare client API
-                          import nvflare.client as flare
-                          
-                          # initialize NVFlare client API
-                          flare.init()
-                          
-                          # run continuously when launching once
-                          while flare.is_running():
-                          
-                            # receive FLModel from NVFlare
-                            input_model = flare.receive()
-                          
-                            # loads model from NVFlare
-                            net.load_state_dict(input_model.params)
-                          
-                            # perform local training and evaluation on received model
-                            {existing centralized deep learning code} ...
-                          
-                            # construct output FLModel
-                            output_model = flare.FLModel(
-                                params=net.cpu().state_dict(),
-                                metrics={"accuracy": accuracy},
-                                meta={"NUM_STEPS_CURRENT_ROUND": steps},
-                            )
-                          
-                            # send model back to NVFlare
-                            flare.send(output_model)
-                        `}
-                        <!-- {`{
-                          "format_version": 2,
-                          "executors": [{
-                              "tasks": ["train", "submit_model", "get_weights"],
-                              "executor": {
-                                "path": "cifar10trainer.Cifar10Trainer",
-                                "args": {
-                                  "lr": 0.01,
-                                  "epochs": 1
-                                }
-                              }
-                            },
-                            {
-                              "tasks": ["validate"],
-                              "executor": {
-                                "path": "cifar10validator.Cifar10Validator",
-                                "args": {}
-                              }
-                            }
-                          ],
-                          "task_result_filters": [],
-                          "task_data_filters": [],
-                          "components": []
-                        }`} -->
-                      </code>
-                    </pre>
+                    class="-ml-12 text-20 leading-2 text-gray-300"
+                    style="tab-size: 2"
+                    set:html={highlightedInstallCode}>
+                  </pre>
+                  <img class="flex items-center" src={NvflareGraphic.src} width=35% height=35% alt="NVIDIA graphic">
                 </div>
               </div>
             </div>

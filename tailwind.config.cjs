@@ -11,9 +11,11 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         'nvidia': '#76b900',
-        'nvidia-light': '#d5ebc3'
+        'nvidia-light': '#d5ebc3',
+        'nvidia-light2': '#eaf5e1'
       }
     },
   },
   plugins: [require("@tailwindcss/typography")],
+  
 };
