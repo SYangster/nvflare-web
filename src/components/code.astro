@@ -10,11 +10,114 @@ import "prismjs/plugins/toolbar/prism-toolbar.min";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 
 const installCode = `
-pip install nvflare
+pip install nvflare torch torchvision
 `;
 
 const clientCode = `
-# import nvflare client API
+###############################
+# PyTorch Training and Validation Code
+# Adapted from 'PyTorch: Training a Classifier' (https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
+
+import torch
+import torch.nn as nn
+import torchvision
+
+class Net(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = torch.flatten(x, 1) # flatten all dimensions except batch
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+def load_data():
+    transform = torchvision.transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    batch_size = 4
+    trainset = torchvision.datasets.CIFAR10(root=dataset_path, train=True, download=True, transform=transform)
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+    testset = torchvision.datasets.CIFAR10(root=dataset_path, train=False, download=True, transform=transform)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+    return trainloader, testloader
+
+def train(input_model, trainloader, client_id):
+    net = Net()
+    net.load_state_dict(input_model.params)
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
+
+    # (optional) use GPU to speed things up
+    net.to(DEVICE)
+
+    for epoch in range(local_epochs):  # loop over the dataset multiple times
+
+        running_loss = 0.0
+        for i, data in enumerate(trainloader, 0):
+            # get the inputs; data is a list of [inputs, labels]
+            # (optional) use GPU to speed things up
+            inputs, labels = data[0].to(DEVICE), data[1].to(DEVICE)
+
+            # zero the parameter gradients
+            optimizer.zero_grad()
+
+            # forward + backward + optimize
+            outputs = net(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
+
+            # print statistics
+            running_loss += loss.item()
+            if i % 2000 == 1999:  # print every 2000 mini-batches
+                print(f"({client_id}) [{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}")
+                running_loss = 0.0
+
+    print(f"({client_id}) Finished Training")
+
+def evaluate(input_model, testloader, client_id):
+    net = Net()
+    net.load_state_dict(input_model.params)
+    # (optional) use GPU to speed things up
+    net.to(DEVICE)
+
+    correct = 0
+    total = 0
+    # since we're not training, we don't need to calculate the gradients for our outputs
+    with torch.no_grad():
+        for data in testloader:
+            # (optional) use GPU to speed things up
+            images, labels = data[0].to(DEVICE), data[1].to(DEVICE)
+            # calculate outputs by running images through the network
+            outputs = net(images)
+            # the class with the highest energy is what we choose as prediction
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+    accuracy = 100 * correct // total
+    print("({client_id}) Accuracy of the network on the 10000 test images: {accuracy}")
+    return accuracy
+
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+trainset = torchvision.datasets.CIFAR10(root=dataset_path, train=True, download=True, transform=transform)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
+testset = torchvision.datasets.CIFAR10(root=dataset_path, train=False, download=True, transform=transform)
+testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
+
+###############################
+# FLARE Client Code
+
 import nvflare.client as flare
 
 # initialize NVFlare client API
@@ -25,18 +128,18 @@ while flare.is_running():
 
   # receive FLModel from NVFlare
   input_model = flare.receive()
+  client_id = flare.get_site_name()
 
-  # loads model from NVFlare
-  net.load_state_dict(input_model.params)
+  # perform local training on received model
+  net = train(input_model, trainloader, client_id)
 
-  # perform local training and evaluation on received model
-  {existing centralized deep learning code} ...
+  # perform local validation
+  accuracy = evaluate(input_model, testloader, client_id)
 
   # construct output FLModel
   output_model = flare.FLModel(
-      params=net.cpu().state_dict(),
-      metrics={"accuracy": accuracy},
-      meta={"NUM_STEPS_CURRENT_ROUND": steps},
+    params=net.cpu().state_dict(),
+    metrics={"accuracy": accuracy},
   )
 
   # send model back to NVFlare
@@ -44,6 +147,8 @@ while flare.is_running():
 `;
 
 const serverCode = `
+from .base_fedavg import BaseFedAvg
+
 class FedAvg(BaseFedAvg):
     def run(self) -> None:
         self.info("Start FedAvg.")
@@ -72,13 +177,17 @@ class FedAvg(BaseFedAvg):
 `;
 
 const configCode = `
+from nvflare.app_common.workflows.fed_avg import FedAvg
+from nvflare.app_opt.pt import PTFileModelPersistor
+from nvflare.job_config.fed_app_config import ClientAppConfig, FedAppConfig, ServerAppConfig
+from nvflare.job_config.fed_job_config import FedJobConfig
+
 class HelloPTJob:
     def __init__(self) -> None:
         super().__init__()
         self.job = self.define_job()
 
     def define_job(self) -> FedJobConfig:
-        # job = FedJobConfig(job_name="hello-pt", min_clients=2, mandatory_clients="site-1")
         job: FedJobConfig = FedJobConfig(job_name="hello-pt", min_clients=2)
 
         server_app = self._create_server_app()
@@ -122,8 +231,8 @@ class HelloPTJob:
 
 const highlightedInstallCode = Prism.highlight(
   installCode,
-  Prism.languages.bash,
-  "bash"
+  Prism.languages.python,
+  "python"
 );
 const highlightedClientCode = Prism.highlight(
   clientCode,
@@ -142,38 +251,35 @@ const highlightedConfigCode = Prism.highlight(
 );
 ---
 
-<div class="bg-white py-24 sm:py-32">
+<div class="bg-nvidia-light2 py-24 sm:py-24">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-4xl text-center">
+    <div class="mx-auto max-w-5xl text-center">
       <h2
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-gray-900">
         Getting Started
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
-        elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
-        ex malesuada commodo.
+        Quickly get started with these example code blocks below, where we showcase how simple it is to adapt
+        a popular machine learning framework such as PyTorch to an end-to-end federated learning scenario with FLARE.
       </p>
       
     </div>
 
-    <div class="mx-auto max-w-4xl py-4 text-left">
+    <div class="mx-auto max-w-5xl py-4 text-left">
       <h2 class="text-2xl font-bold text-gray-900 mb-2">Installation</h2>
       <p class="text-slate-900 mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
-        elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
-        ex malesuada commodo.
+        Install the required dependencies for this example.
       </p>
       <pre
         class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
         set:html={highlightedInstallCode}
       />
-    <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Client Code (train.py)</h2>
+    <div class="mx-auto max-w-5xl py-4 text-left">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Client Code (train.py)</h2>
       <p class="text-slate-900 mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
-        elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
-        ex malesuada commodo.
+        We use the Client API to convert the centralized training PyTorch code into federated learning code with
+        only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training
+        and validation, and then send the model back to FLARE.
       </p>
       <pre
         class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
@@ -181,12 +287,11 @@ const highlightedConfigCode = Prism.highlight(
       />
     </div>
 
-    <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Workflow Code (fedavg.py)</h2>
+    <div class="mx-auto max-w-5xl py-4 text-left">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Controller Code (fedavg.py)</h2>
       <p class="text-slate-900 mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida
-        elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac
-        ex malesuada commodo.
+        The Controller API is used to write a federated routine with mechanisms for distributing and receiving models from clients.
+        Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).
       </p>
       <pre
         class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty"
@@ -194,11 +299,11 @@ const highlightedConfigCode = Prism.highlight(
       />
     </div>
 
-    <div class="mx-auto max-w-4xl py-4 text-left">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Example Job Construction Code (hello_pt_job.py)</h2>
+    <div class="mx-auto max-w-5xl py-4 text-left">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Code (hello_pt_job.py)</h2>
       <p class="text-slate-900 mb-4">
-        This snippet shows how to create a job for a NVIDIA FLARE
-        application, specifying server details and client parameters.
+        Lastly we construct our FLARE job with our 'train.py' client script and 'FedAvg' controller.
+        We then run the job with the FL simulator.
       </p>
       <pre
         class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty" 
