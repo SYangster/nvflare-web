@@ -29,6 +29,9 @@ const makeTitle = title ? title + " | " + "NVIDIA FLARE" : "NVIDIA FLARE";
       description="NVIDIA FLARE™ (NVIDIA Federated Learning Application Runtime Environment) is a domain-agnostic, open-source, and extensible SDK for Federated Learning."
       canonical={canonicalURL}
     />
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
   </head>
   <body>
     <slot />
@@ -40,5 +43,6 @@ const makeTitle = title ? title + " | " + "NVIDIA FLARE" : "NVIDIA FLARE";
         content-visibility: auto;
       }
     </style>
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
 </html>
