@@ -1,33 +1,10 @@
 ---
-import Prism from "prismjs";
-import "prismjs/components/prism-python.js";
-import "prismjs/themes/prism.css";
-
 import NvidiaLogo from '../images/nvidia_eye.png'
-import NvflareGraphic from '../images/nvflare_graphic.jpeg'
-
-
-const installCode = `
-
-            from nvflare.client import flare
-
-            flare.init()
-
-            input_model = flare.receive()
-
-            flare.send(output_model)
-
-`;
-
-const highlightedInstallCode = Prism.highlight(
-  installCode,
-  Prism.languages.python,
-  "python"
-);
+import NvflareAnimation from '../images/nvflare_graphic_animation.mp4'
 ---
 <div class="bg-white">
   <div
-    class="relative isolate overflow-hidden bg-white">
+    class="relative isolate overflow-hidden bg-black">
     <div
       class="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-12">
       <div class="px-6 lg:px-0 lg:pt-4">
@@ -38,11 +15,11 @@ const highlightedInstallCode = Prism.highlight(
                 href="https://nvflare.readthedocs.io/en/main/whats_new.html"
                 class="inline-flex space-x-6">
                 <span
-                  class="rounded-full bg-nvidia/10 px-3 py-1 text-sm font-semibold leading-6 text-nvidia ring-1 ring-inset ring-nvidia/10"
+                  class="rounded-full bg-nvidia/20 px-3 py-1 text-sm font-semibold leading-6 text-nvidia ring-1 ring-inset ring-nvidia/10"
                   >What's new</span
                 >
                 <span
-                  class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-600">
+                  class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-200 hover:text-gray-100">
                   <span>Just shipped v2.4</span>
                   <svg
                     class="h-5 w-5 text-gray-400"
@@ -57,12 +34,13 @@ const highlightedInstallCode = Prism.highlight(
                 </span>
               </a>
             </div>
-            <img class="mt-6 flex items-center" src={NvidiaLogo.src} width=40% height=40% alt="NVIDIA logo">
+            <img class="mt-6 flex items-center w-1/2" src={NvidiaLogo.src} alt="NVIDIA logo">
             <h1
-              class="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+              class="mt-10 text-4xl font-bold tracking-tight text-neutral-200 sm:text-6xl">
               NVIDIA FLARE
             </h1>
-            <p class="mt-4 text-lg leading-8 text-gray-600">
+
+            <p class="mt-4 text-lg leading-8 text-neutral-400">
               NVIDIA FLARE™ (NVIDIA Federated Learning Application Runtime
               Environment) is a domain-agnostic, open-source, and extensible SDK
               for Federated Learning. It allows researchers and data scientists
@@ -70,7 +48,7 @@ const highlightedInstallCode = Prism.highlight(
               enables platform developers to build a secure, privacy-preserving
               offering for a distributed multi-party collaboration.
             </p>
-            <div class="mt-10 flex items-center gap-x-6">
+            <div class="mt-10 mb-20 flex items-center gap-x-6">
               <a
                 href="https://nvflare.readthedocs.io/en/main/index.html"
                 class="rounded-md bg-nvidia px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nvidia"
@@ -78,47 +56,17 @@ const highlightedInstallCode = Prism.highlight(
               >
               <a
                 href="https://github.com/NVIDIA/NVFlare"
-                class="text-sm font-semibold leading-6 text-gray-900"
+                class="text-sm font-semibold leading-6 text-gray-300 hover:text-neutral-200"
                 >View on GitHub <span aria-hidden="true">→</span></a
               >
             </div>
           </div>
         </div>
       </div>
-      <div
-        class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
-        <div class="shadow-lg md:rounded-3xl">
-          <div
-            class="bg-nvidia [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
-            <div class="relative px-6 pt-8 sm:pt-16 md:pl-16 md:pr-0">
-              <div class="mx-auto max-w-2xl md:mx-0 md:max-w-none">
-                <div class="w-screen overflow-hidden rounded-tl-xl bg-black">
-                  <div class="flex bg-gray-800/40 ring-1 ring-white/5">
-                    <div
-                      class="-mb-px flex text-sm font-medium leading-6 text-gray-400">
-                      <div
-                        class="border-b border-r border-b-white/20 border-r-white/10 bg-white/5 px-4 py-2 text-white">
-                        train.py
-                      </div>
-                      <div class="border-r border-gray-600/10 px-4 py-2">
-                        fedavg.py
-                      </div>
-                      <div class="border-r border-gray-600/10 px-4 py-2">
-                        hello_pt_job.py
-                      </div>
-                    </div>
-                  </div>
-                  <pre
-                    class="-ml-12 text-20 leading-2 text-gray-300"
-                    style="tab-size: 2"
-                    set:html={highlightedInstallCode}>
-                  </pre>
-                  <img class="flex items-center" src={NvflareGraphic.src} width=35% height=35% alt="NVIDIA graphic">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen place-content-center">
+        <video autoplay loop muted playsinline>
+          <source src={NvflareAnimation} type="video/mp4">
+        </video>
       </div>
     </div>
   </div>

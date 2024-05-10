@@ -1,5 +1,5 @@
 ---
-const tutorials = [
+const guides = [
   {
     title: "Running FLARE in Docker",
     tags: ["beginner"],
@@ -56,9 +56,6 @@ const tutorials = [
     icon: "bx:bxs-window-alt",
     link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_api.ipynb",
   },
-];
-
-const examples = [
   {
     title: "End-to-end CIFAR10 classification example with FedAvg",
     tags: ["beginner", "client api", "controller api", "job api"],
@@ -124,32 +121,102 @@ const examples = [
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/experiment-tracking/tensorboard",
   },
 ];
+
+const tags = [
+{
+    tag: "recommended",
+},
+{
+    tag: "tool",
+},
+{
+    tag: "example",
+},
+{
+    tag: "beginner",
+},
+{
+    tag: "intermediate",
+},
+{
+    tag: "advanced",
+},
+{
+    tag: "simulation",
+},
+{
+    tag: "deployment",
+},
+{
+    tag: "medical-imaging",
+},
+{
+    tag: "financial",
+},
+{
+    tag: "deep learning",
+},
+{
+    tag: "machine learning",
+},
+{
+    tag: "xgboost",
+},
+];
 ---
+
 
 <div class="bg-white py-16 sm:py-16">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mt-10 flex justify-left">
+      <a href="/nvflare-web" class="text-sm font-semibold leading-6 text-nvidia">
+        <span aria-hidden="true">&larr;</span>
+        Back to home
+      </a>
+    </div>
     <div class="mt-16 md:mt-0 text-center">
       <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
         Tutorials
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
-        Below we highlight a selection of core tutorials and examples covering everything
-        from the core features of FLARE to various examples across different applications.
+        Explore our extensive catalog of tutorials of FLARE core features and examples for various applications.
+        Use the tags below to filter based on difficulty, type, applications, frameworks, etc.
+        or search for keywords.
 
         For more examples, visit our
         <a class="text-green-600" href="https://github.com/NVIDIA/NVFlare/tree/main/examples">GitHub</a>.
       </p>
-      <p class="text-3xl mt-5 text-slate-600 w-3/4 m-auto">
-        Tools
-      </p>
     </div>
     <hr class="mt-5 mb-10">
-    <!-- Grid setup for all tutorials -->
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+    <form class="flex items-center max-w-sm mx-auto">
+      <label for="simple-search" class="sr-only">Search</label>
+      <div class="relative w-full">
+          <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-nvidia focus:border-nvidia block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search tag or keyword..." required />
+      </div>
+      <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-nvidia rounded-lg border border-nvidia hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+          </svg>
+          <span class="sr-only">Search</span>
+      </button>
+    </form>
+    <ul class="px-40 py-10 gap-x-2 gap-y-1 flex flex-wrap items-center place-content-center">
       {
-        tutorials.map((item, index) => (
+        tags.map((item, index) => (
+          <li>
+            <input type="checkbox" id={item.tag} value="" class="hidden peer" required="">
+            <label for={item.tag} class="inline-flex rounded-full peer-checked:bg-green-50 px-2.5 py-0.5 text-xs font-medium text-gray-500 ring-1 ring-inset ring-gray-600/20 peer-checked:ring-green-600/20 text-gray-500 bg-white border-1 border-transparent rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-nvidia hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-green-700 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+              {item.tag}
+            </label>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-10 gap-16">
+      {
+        guides.map((item, index) => (
           <div
-            class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 6 ? "hidden extra-tutorial" : ""}`}>
+            class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 12 ? "hidden extra-tutorial" : ""}`}>
             <div>
               <h3 class="font-semibold text-md px-4 pt-2 text-lg">
                 {item.title}
@@ -179,10 +246,10 @@ const examples = [
     <div class="mt-10 flex justify-center">
       <button
         type="button"
-        id="toggle-button-tutorials"
+        id="toggle-button-guides"
         class="flex items-center text-base font-medium tracking-tight text-slate-900 hover:text-slate-700"
         onclick="toggleTutorials('.extra-tutorial', '#toggle-button-tutorials')"
-        >See more<svg
+      >See more<svg
           aria-hidden="true"
           viewBox="0 0 24 24"
           class="ml-2 h-6 w-6"
@@ -192,66 +259,10 @@ const examples = [
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
-            stroke-linejoin="round"></path></svg
-        ></button
-      >
-    </div>
-    <div class="mt-16 md:mt-0 text-center">
-      <p class="text-3xl mt-16 text-slate-600 w-3/4 m-auto">
-        Examples
-      </p>
-    </div>
-    <hr class="mt-5 mb-10">
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
-      {
-        examples.map((item, index) => (
-          <div
-            class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 6 ? "hidden extra-example" : ""}`}>
-            <div>
-              <h3 class="font-semibold text-md px-4 pt-2 text-lg">
-                {item.title}
-              </h3>
-              <div class="px-4 py-2 gap-x-2 flex items-center">
-                {item.tags.map((tag) => (
-                  <span class="inline-flex rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p class="text-slate-500 mt-2 leading-relaxed px-4 pb-2">
-                {item.description}
-              </p>
-              <div class="flex justify-center border-t border-gray-200">
-                <a
-                  href={item.link}
-                  class="items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-                  Go to Tutorial
-                </a>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-    <div class="mt-10 flex justify-center">
-      <button
-        type="button"
-        id="toggle-button-examples"
-        class="flex items-center text-base font-medium tracking-tight text-slate-900 hover:text-slate-700"
-        onclick="toggleTutorials('.extra-example', '#toggle-button-examples')"
-        >See more<svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          class="ml-2 h-6 w-6"
-          ><path
-            d="m17 14-5 5-5-5M12 18.5V5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path></svg
-        ></button
-      >
+            stroke-linejoin="round">
+          </path>
+        </svg>
+      </button>
     </div>
   </div>
 </div>
