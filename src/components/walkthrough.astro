@@ -7,6 +7,7 @@ const walkthrough = [
     title: "Introduction to FLARE",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    button_text: "View Notebook",
     link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
   },
   {
@@ -14,13 +15,15 @@ const walkthrough = [
     title: "End-to-end Federated Learning Application",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida elementum lorem, ut imperdiet nisi rutrum eget. Aenean elementum sem ac ex malesuada commodo.",
+    button_text: "View Notebook",
     link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
   },
   {
     step: "Step 3",
-    title: "Tutorials Catalog",
+    title: "Tutorial Catalog",
     description:
       "Now that you understand the basics of FLARE, explore our catalog of various tutorials and examples showcasing everything from the core features of FLARE, to advanced applications.",
+    button_text: "View Catalog",
     link: "/nvflare-web/catalog",
   },
 ];
@@ -61,7 +64,7 @@ const walkthrough = [
               <a
                 href={item.link}
                 class="text-sm font-semibold leading-6 text-green-600">
-                View Notebook <span aria-hidden="true">→</span>
+                {item.button_text} <span aria-hidden="true">→</span>
               </a>
             </p>
           </div>
@@ -75,6 +78,16 @@ const walkthrough = [
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
       </iframe>
+    </div>
+    <div class="mt-24 text-center">
+      <p class="text-lg mt-4 mb-8 text-slate-600 w-3/4 m-auto">
+        Now that you understand the basics of FLARE, explore our catalog of various tutorials and examples showcasing everything from the core features of FLARE   to advanced applications.
+      </p>
+      <a
+        href="/nvflare-web/catalog"
+        class="rounded-md bg-nvidia px-3.5 py-2.5 text-mg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nvidia"
+        >Tutorial Catalog -></a
+      >
     </div>
   </div>
 </div>

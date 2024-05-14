@@ -257,7 +257,7 @@ const highlightedConfigCode = Prism.highlight(
 ---
 
 <div class="bg-white py-20 sm:py-20">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="mx-auto max-w-8xl px-6 lg:px-8">
     <div class="mx-auto max-w-5xl text-center">
       <h2
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-gray-900">
@@ -271,6 +271,56 @@ const highlightedConfigCode = Prism.highlight(
       
     </div>
 
+    <div id="download_buttons" class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-center mt-4">
+
+      <button id="dropdownFrameworkButton" data-dropdown-toggle="dropdown" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-1 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <span class="inline-flex items-center">
+            <svg class="w-5 h-5 text-gray-800 dark:text-white me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 8-4 4 4 4m8 0 4-4-4-4m-2-3-4 14"/>
+            </svg>
+            <span class="text-xs font-semibold">PyTorch</span>
+            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+            </svg>
+        </span>
+      </button>
+
+      <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-lg dark:bg-gray-700 m-0.5 px-2.5">
+        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownFrameworkButton">
+          <li>
+            <a href="#" class="rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PyTorch</a>
+          </li>
+          <li>
+            <a href="#" class="rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lightning</a>
+          </li>
+          <li>
+            <a href="#" class="rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">TensorFlow</a>
+          </li>
+          <li>
+            <a href="#" class="rounded-lg block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">scikit-learn</a>
+          </li>
+        </ul>
+      </div>
+
+      <button data-copy-to-clipboard-target="code-block" data-copy-to-clipboard-content-type="innerHTML" data-copy-to-clipboard-html-entities="true" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <span id="default-message" class="inline-flex items-center">
+            <svg class="w-0 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                <img class="w-6 me-1.5" src={GoogleColab.src} alt="NVIDIA logo">
+            </svg>
+            <span class="text-xs font-semibold">Run in Google Colab</span>
+        </span>
+      </button>
+
+      <button data-copy-to-clipboard-target="code-block" data-copy-to-clipboard-content-type="innerHTML" data-copy-to-clipboard-html-entities="true" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <span id="default-message" class="inline-flex items-center">
+            <svg class="w-3 h-3 text-gray-800 dark:text-white me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+            </svg>
+            <span class="text-xs font-semibold">Download Notebook</span>
+        </span>
+      </button>
+    </div>
+
     <div class="mx-auto max-w-5xl py-4 text-left">
       <h2 class="text-2xl font-bold text-gray-900 mb-2">Installation</h2>
       <p class="text-slate-900 mb-4">
@@ -280,135 +330,90 @@ const highlightedConfigCode = Prism.highlight(
         class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty mb-6"
         set:html={highlightedInstallCode}
       />
+    </div>
 
-      <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-        <ul class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-evenly space-x-10" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
-            <li class="me-2" role="presentation">
-                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold" id="client-tab" data-tabs-target="#client-code" type="button" role="tab" aria-controls="profile" aria-selected="false">Client</button>
-            </li>
-            <li class="me-2" role="presentation">
-                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#controller-code" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Controller</button>
-            </li>
-            <li class="me-2" role="presentation">
-                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#job-code" type="button" role="tab" aria-controls="settings" aria-selected="false">Job</button>
-            </li>
-        </ul>
+    <div class="mx-auto max-w-8xl py-4 text-left inline-flex">
+      <ul class="flex-column h-fit border-r space-y -mb-px text-xl font-medium mr-16" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
+        <li class="" role="presentation">
+            <button class="w-28 inline-block p-7 border-r-2 font-bold text-left" id="client-tab" data-tabs-target="#client-code" type="button" role="tab" aria-controls="profile" aria-selected="false">Client</button>
+        </li>
+        <li class="" role="presentation">
+            <button class="w-28 inline-block p-7 border-r-2 font-bold text-left hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#controller-code" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Server</button>
+        </li>
+        <li class="" role="presentation">
+            <button class="w-28 inline-block p-7 border-r-2 font-bold text-left hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#job-code" type="button" role="tab" aria-controls="settings" aria-selected="false">Job</button>
+        </li>
+      </ul>
+      <div class="mx-auto max-w-5xl py-4 text-left" id="client-code" role="tabpanel" aria-labelledby="profile-tab">
+        
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Client Code (train.py)</h2>
+        <p class="text-slate-900 mb-4">
+          We use the Client API to convert the centralized training PyTorch code into federated learning code with
+          only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training
+          and validation, and then send the model back to FLARE.
+        </p>
+        <div class="relative rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto">
+          <button data-copy-to-clipboard-target="client-code-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="absolute top-2 right-2 z-0 text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+            <span id="default-message" class="inline-flex items-center">
+                <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                </svg>
+                <span class="text-xs font-semibold">Copy</span>
+            </span>
+          </button>
+          <pre
+            id="client-code-block"
+            set:html={highlightedClientCode}
+          />
+        </div>
       </div>
 
-      <div id="download_buttons" class="flex flex-wrap -mb-px text-xl font-medium text-center">
-        <button data-copy-to-clipboard-target="client-code-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
-          <span id="default-message" class="inline-flex items-center">
-              <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                  <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-              </svg>
-              <span class="text-xs font-semibold">Copy code</span>
-          </span>
-          <span id="success-message" class="hidden inline-flex items-center">
-              <svg class="w-3 h-3 text-blue-700 dark:text-blue-500 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-              </svg>
-              <span class="text-xs font-semibold text-blue-700 dark:text-blue-500">Copied</span>
-          </span>
-        </button>
+      <div class="mx-auto max-w-5xl py-4 text-left" id="controller-code" role="tabpanel" aria-labelledby="dashboard-tab">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Server Code (fedavg.py)</h2>
+        <p class="text-slate-900 mb-4">
+          The Controller API is used to write a federated routine with mechanisms for distributing and receiving models from clients.
+          Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).
+        </p>
+        <div class="relative rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto">
+          <button data-copy-to-clipboard-target="client-code-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="absolute top-2 right-2 text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+            <span id="default-message1" class="inline-flex items-center">
+                <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                </svg>
+                <span class="text-xs font-semibold">Copy</span>
+            </span>
+          </button>
+          <pre
+            id="controller-code-block"
+            set:html={highlightedServerCode}
+          />
+        </div>
+      </div>
 
-        <button data-copy-to-clipboard-target="code-block" data-copy-to-clipboard-content-type="innerHTML" data-copy-to-clipboard-html-entities="true" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
-          <span id="default-message" class="inline-flex items-center">
-              <svg class="w-0 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                  <img class="w-6 me-1.5" src={GoogleColab.src} alt="NVIDIA logo">
-              </svg>
-              <span class="text-xs font-semibold">Run in Google Colab</span>
-          </span>
-          <span id="success-message" class="hidden inline-flex items-center">
-              <svg class="w-3 h-3 text-blue-700 dark:text-blue-500 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-              </svg>
-              <span class="text-xs font-semibold text-blue-700 dark:text-blue-500">Copied</span>
-          </span>
-        </button>
-
-        <button data-copy-to-clipboard-target="code-block" data-copy-to-clipboard-content-type="innerHTML" data-copy-to-clipboard-html-entities="true" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
-          <span id="default-message" class="inline-flex items-center">
-              <svg class="w-3 h-3 text-gray-800 dark:text-white me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
-              </svg>
-              <span class="text-xs font-semibold">Download Notebook</span>
-          </span>
-          <span id="success-message" class="hidden inline-flex items-center">
-              <svg class="w-3 h-3 text-blue-700 dark:text-blue-500 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
-              </svg>
-              <span class="text-xs font-semibold text-blue-700 dark:text-blue-500">Copied</span>
-          </span>
-        </button>
-    </div>
-
-    <div class="mx-auto max-w-5xl py-4 text-left" id="client-code" role="tabpanel" aria-labelledby="profile-tab">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Client Code (train.py)</h2>
-      <p class="text-slate-900 mb-4">
-        We use the Client API to convert the centralized training PyTorch code into federated learning code with
-        only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training
-        and validation, and then send the model back to FLARE.
-      </p>
-      <pre
-        id="client-code-block"
-        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto"
-        set:html={highlightedClientCode}
-      />
-
-    </div>
-
-    <div class="mx-auto max-w-5xl py-4 text-left" id="controller-code" role="tabpanel" aria-labelledby="dashboard-tab">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Controller Code (fedavg.py)</h2>
-      <p class="text-slate-900 mb-4">
-        The Controller API is used to write a federated routine with mechanisms for distributing and receiving models from clients.
-        Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).
-      </p>
-      <pre
-        id="controller-code-block"
-        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto"
-        set:html={highlightedServerCode}
-      />
-    </div>
-
-    <div class="mx-auto max-w-5xl py-4 text-left" id="job-code" role="tabpanel" aria-labelledby="settings-tab">
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Construction Code (hello_pt_job.py)</h2>
-      <p class="text-slate-900 mb-4">
-        Lastly we construct our FLARE job with our 'train.py' client script and 'FedAvg' controller.
-        We then run the job with the FL simulator.
-      </p>
-      <pre
-        id="job-code-block"
-        class="rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto"
-        set:html={highlightedConfigCode}
-      />
+      <div class="mx-auto max-w-5xl py-4 text-left" id="job-code" role="tabpanel" aria-labelledby="settings-tab">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Job Code (hello_pt_job.py)</h2>
+        <p class="text-slate-900 mb-4">
+          Lastly we construct our FLARE job with our 'train.py' client script and 'FedAvg' server controller.
+          We then run the job with the FL simulator.
+        </p>
+        <div class="relative rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto">
+          <button data-copy-to-clipboard-target="client-code-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="absolute top-2 right-2 text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+            <span id="default-message2" class="inline-flex items-center">
+                <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                </svg>
+                <span class="text-xs font-semibold">Copy</span>
+            </span>
+          </button>
+          <pre
+            id="job-code-block"
+            set:html={highlightedConfigCode}
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  initFlowbite();
-
-  const clipboard = FlowbiteInstances.getInstance('CopyClipboard', 'client-code-block');
-
-  const $defaultMessage = document.getElementById('default-message');
-  const $successMessage = document.getElementById('success-message');
-
-  clipboard.updateOnCopyCallback((clipboard) => {
-      showSuccess();
-
-      // reset to default state
-      setTimeout(() => {
-          resetToDefault();
-      }, 2000);
-  })
-
-  const showSuccess = () => {
-      $defaultMessage.classList.add('hidden');
-      $successMessage.classList.remove('hidden');
-  }
-
-  const resetToDefault = () => {
-      $defaultMessage.classList.remove('hidden');
-      $successMessage.classList.add('hidden');
-  }
 </script>

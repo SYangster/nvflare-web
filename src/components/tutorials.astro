@@ -122,158 +122,310 @@ const guides = [
   },
 ];
 
-const tags = [
+
+// Level: beginner etc
+// API type Client : client api, learner, executor
+// API type controller : WF Controller API, controller
+// Framework: tensorflow, PyTorch, lightning, xgboost, scklearn, graphsage
+// Model arch: deep learning, Graph NN, xgboost, traditional ML
+// Application domain: medical imaging, financial service, general
+// Data privacy algorithm: HE, Differential privacy
+// Others: CLI, provisioning, deployment, experiment tracking, security
+
+const level = [
+  {
+      tag: "beginner",
+  },
+  {
+      tag: "intermediate",
+  },
+  {
+      tag: "advanced",
+  },
+]
+
+const flare_types = [
+  {
+      tag: "simulation",
+  },
+  {
+      tag: "deployment",
+  },
+  {
+      tag: "provisioning",
+  },
+  {
+      tag: "CLI",
+  },
+  {
+      tag: "experiment-tracking",
+  },
+]
+
+
+const flare_client_apis = [
+  {
+      tag: "client api",
+  },
+  {
+      tag: "learner",
+  },
+  {
+      tag: "executor",
+  },
+]
+
+const flare_controller_apis = [
+  {
+      tag: "WF Controller API",
+  },
+  {
+      tag: "controller",
+  },
+]
+
+const framework = [
+  {
+      tag: "pytorch",
+  },
+  {
+      tag: "tensorflow",
+  },
+  {
+      tag: "lightning",
+  },
+  {
+      tag: "xgboost",
+  },
+  {
+      tag: "sklearn",
+  },
+  {
+      tag: "graphsage",
+  },
+]
+
+const model_arch = [
 {
-    tag: "recommended",
-},
-{
-    tag: "tool",
-},
-{
-    tag: "example",
-},
-{
-    tag: "beginner",
-},
-{
-    tag: "intermediate",
-},
-{
-    tag: "advanced",
-},
-{
-    tag: "simulation",
-},
-{
-    tag: "deployment",
-},
-{
-    tag: "medical-imaging",
-},
-{
-    tag: "financial",
+    tag: "machine learning",
 },
 {
     tag: "deep learning",
 },
 {
-    tag: "machine learning",
-},
-{
     tag: "xgboost",
 },
+{
+    tag: "GNN",
+},
 ];
+
+const application_domain = [
+{
+    tag: "general",
+},
+{
+    tag: "medical-imaging",
+},
+{
+    tag: "financial-services",
+},
+]
+
+const privacy_algorithms = [
+{
+    tag: "homomorphic-encryption",
+},
+{
+    tag: "differential-privacy",
+},
+]
+
+const tag_list = [
+  {
+      name: "Difficulty Level",
+      body: "level-body",
+      target: "#level-body",
+      list: level,
+  },
+  {
+      name: "FLARE Types",
+      body: "flare-types-body",
+      target: "#flare-types-body",
+      list: flare_types,
+  },
+  {
+      name: "Client APIs",
+      body: "flare-client-apis-body",
+      target: "#flare-client-apis-body",
+      list: flare_client_apis,
+  },
+  {
+      name: "Controller APIs",
+      body: "flare-controller-apis-body",
+      target: "#flare-controller-apis-body",
+      list: flare_controller_apis,
+  },
+  {
+      name: "Framework",
+      body: "framework-body",
+      target: "#framework-body",
+      list: framework,
+  },
+  {
+      name: "Model Architecture",
+      body: "model-architecture-body",
+      target: "#model-architecture-body",
+      list: model_arch,
+  },
+  {
+      name: "Application Domain",
+      body: "application-domain-body",
+      target: "#application-domain-body",
+      list: application_domain,
+  },
+  {
+      name: "Privacy Algorithm",
+      body: "privacy-algorithm-body",
+      target: "#privacy-algorithm-body",
+      list: privacy_algorithms,
+  },
+]
 ---
 
 
 <div class="bg-white py-16 sm:py-16">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mt-10 flex justify-left">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-8">
+    <div class="mx-auto max-w-5xl mt-10 flex justify-left">
       <a href="/nvflare-web" class="text-sm font-semibold leading-6 text-nvidia">
         <span aria-hidden="true">&larr;</span>
         Back to home
       </a>
     </div>
-    <div class="mt-16 md:mt-0 text-center">
+    <div class="mx-auto max-w-5xl mt-16 md:mt-0 text-center">
       <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-        Tutorials
+        Tutorial Catalog
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
         Explore our extensive catalog of tutorials of FLARE core features and examples for various applications.
-        Use the tags below to filter based on difficulty, type, applications, frameworks, etc.
+        Use the tags below to filter by categories such as on level, applications, frameworks, etc.
         or search for keywords.
 
         For more examples, visit our
         <a class="text-green-600" href="https://github.com/NVIDIA/NVFlare/tree/main/examples">GitHub</a>.
       </p>
+      <hr class="mt-5 mb-10">
     </div>
-    <hr class="mt-5 mb-10">
-    <form class="flex items-center max-w-sm mx-auto">
-      <label for="simple-search" class="sr-only">Search</label>
-      <div class="relative w-full">
-          <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-nvidia focus:border-nvidia block w-full ps-5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search tag or keyword..." required />
+
+    <div class="mx-auto max-w-[1600px] py-4 text-left inline-flex">
+
+      <div class="flex-column h-fit border-r border-transparent w-52 mr-12">
+        <form class="flex mb-4">
+          <label for="simple-search" class="sr-only">Search</label>
+          <div class="relative w-full">
+              <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-nvidia focus:border-nvidia block w-full ps-4 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search keyword..." />
+          </div>
+          <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-nvidia rounded-lg border border-nvidia hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+              </svg>
+              <span class="sr-only">Search</span>
+          </button>
+        </form>
+        <div id="accordion-flush" class="ml-2 place-content-center" data-accordion="open" data-active-classes="bg-white dark:bg-gray-500 text-gray-500 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+            {
+              tag_list.map((category, index) => (
+                <div class="">
+                  <h2 id={category.name} class="">
+                    <button type="button" class="flex items-center justify-between mr-4 py-2 font-medium rtl:text-right text-gray-900 border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target={category.target} aria-expanded="false" aria-controls={category.body}>
+                      <span>{category.name}</span>
+                      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                      </svg>
+                    </button>
+                  </h2>
+                  <div id={category.body} class="hidden flex flex-wrap gap-x-1 w-40" aria-labelledby={category.name}>
+                    {category.list.map((item, index) => (
+                      <ul>
+                        <input type="checkbox" id={item.tag} value="" class="hidden peer" required="">
+                        <label for={item.tag} class="inline-flex rounded-full peer-checked:bg-green-50 px-2.5 py-0.5 text-xs font-medium text-gray-500 ring-1 ring-inset ring-gray-600/20 peer-checked:ring-green-600/20 text-gray-500 bg-white border-1 border-transparent rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-nvidia hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-green-700 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                          {item.tag}
+                        </label>
+                      </ul>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+        </div>
       </div>
-      <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-nvidia rounded-lg border border-nvidia hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-          </svg>
-          <span class="sr-only">Search</span>
-      </button>
-    </form>
-    <ul class="px-40 py-10 gap-x-2 gap-y-1 flex flex-wrap items-center place-content-center">
-      {
-        tags.map((item, index) => (
-          <li>
-            <input type="checkbox" id={item.tag} value="" class="hidden peer" required="">
-            <label for={item.tag} class="inline-flex rounded-full peer-checked:bg-green-50 px-2.5 py-0.5 text-xs font-medium text-gray-500 ring-1 ring-inset ring-gray-600/20 peer-checked:ring-green-600/20 text-gray-500 bg-white border-1 border-transparent rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-nvidia hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-green-700 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-              {item.tag}
-            </label>
-          </li>
-        ))
-      }
-    </ul>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-10 gap-16">
-      {
-        guides.map((item, index) => (
-          <div
-            class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 12 ? "hidden extra-tutorial" : ""}`}>
-            <div>
-              <h3 class="font-semibold text-md px-4 pt-2 text-lg">
-                {item.title}
-              </h3>
-              <div class="px-4 py-2 gap-x-2 flex items-center">
-                {item.tags.map((tag) => (
-                  <span class="inline-flex rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <p class="text-slate-500 mt-2 leading-relaxed px-4 pb-2">
-                {item.description}
-              </p>
-              <div class="flex justify-center border-t border-gray-200">
-                <a
-                  href={item.link}
-                  class="items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
-                  Go to Tutorial
-                </a>
+
+      <div class="max-w-5xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 mt-4 gap-16">
+        {
+          guides.map((item, index) => (
+            <div
+              class={`flex gap-4 items-start divide-gray-200 rounded-lg bg-white shadow-md ${index >= 12 ? "hidden extra-tutorial" : ""}`}>
+              <div>
+                <h3 class="font-semibold text-md px-4 pt-2 text-lg">
+                  {item.title}
+                </h3>
+                <div class="px-4 py-2 gap-x-2 flex items-center">
+                  {item.tags.map((tag) => (
+                    <span class="inline-flex rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <p class="text-slate-500 mt-2 leading-relaxed px-4 pb-2">
+                  {item.description}
+                </p>
+                <div class="flex justify-center border-t border-gray-200">
+                  <a
+                    href={item.link}
+                    class="items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900">
+                    Go to Tutorial
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
+
     </div>
-    <div class="mt-10 flex justify-center">
-      <button
-        type="button"
-        id="toggle-button-guides"
-        class="flex items-center text-base font-medium tracking-tight text-slate-900 hover:text-slate-700"
-        onclick="toggleTutorials('.extra-tutorial', '#toggle-button-tutorials')"
-      >See more<svg
-          aria-hidden="true"
-          viewBox="0 0 24 24"
-          class="ml-2 h-6 w-6"
-          ><path
-            d="m17 14-5 5-5-5M12 18.5V5"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-          </path>
-        </svg>
-      </button>
-    </div>
+
   </div>
 </div>
 
-<script is:inline>
-  function toggleTutorials(extra_content, button_name) {
-    const extraTutorials = document.querySelectorAll(extra_content);
-    const buttonText = document.querySelector(button_name);
-    extraTutorials.forEach((tut) => {
-      tut.classList.toggle("hidden");
-    });
-    buttonText.classList.toggle("hidden");
-  }
-</script>
+// <script is:inline>
+//   function toggleTutorials(extra_content, button_name) {
+//     const extraTutorials = document.querySelectorAll(extra_content);
+//     const buttonText = document.querySelector(button_name);
+//     extraTutorials.forEach((tut) => {
+//       tut.classList.toggle("hidden");
+//     });
+//     buttonText.classList.toggle("hidden");
+//   }
+// </script>
+
+// <div class="mt-10 flex justify-center">
+//   <button
+//     type="button"
+//     id="toggle-button-guides"
+//     class="flex items-center text-base font-medium tracking-tight text-slate-900 hover:text-slate-700"
+//     onclick="toggleTutorials('.extra-tutorial', '#toggle-button-tutorials')"
+//   >See more<svg
+//       aria-hidden="true"
+//       viewBox="0 0 24 24"
+//       class="ml-2 h-6 w-6"
+//       ><path
+//         d="m17 14-5 5-5-5M12 18.5V5"
+//         fill="none"
+//         stroke="currentColor"
+//         stroke-width="2"
+//         stroke-linecap="round"
+//         stroke-linejoin="round">
+//       </path>
+//     </svg>
+//   </button>
+// </div>
