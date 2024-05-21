@@ -62,11 +62,11 @@ const walkthrough = [
       </ul>
     </div> -->
 
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-3 mt-10" data-tabs-toggle="#default-styled-tab-content1" data-tabs-active-classes="" data-tabs-inactive-classes="opacity-65" role="tablist">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-3 mt-10" data-tabs-toggle="#default-styled-tab-content1" data-tabs-active-classes="" data-tabs-inactive-classes="opacity-60" role="tablist">
       {
         walkthrough.map((item) => (
           <div role="presentation">
-            <button class="text-left h-72" id={item.step + "tab"} data-tabs-target={"#" + item.id} type="button" role="tab" aria-controls="profile" aria-selected="false">
+            <button class="text-left h-44" id={item.step + "tab"} data-tabs-target={"#" + item.id} type="button" role="tab" aria-controls="profile" aria-selected="false">
               <span class="flex items-center text-sm font-semibold leading-6 text-nvidia">
                 {item.step}
                 <div
@@ -80,14 +80,14 @@ const walkthrough = [
               <p class="mt-1 text-base leading-7 text-gray-600">
                 {item.description}
               </p>
-              <p class="mt-6">
+            </button>
+            <p class="mt-6" role="presentation">
                 <a
                   href={item.link}
                   class="text-sm font-semibold leading-6 text-green-600">
                   {item.button_text} <span aria-hidden="true">→</span>
                 </a>
               </p>
-            </button>
           </div>
         ))
       }

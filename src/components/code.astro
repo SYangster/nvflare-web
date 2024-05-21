@@ -19,11 +19,169 @@ pip install nvflare torch torchvision
 `;
 
 const installCode_lt = `
-pip install nvflare lightning
+pip install nvflare pytorch_lightning
 `;
 
 const installCode_tf = `
 pip install nvflare tensorflow
+`;
+
+const clientCode_lt = `
+import torch
+import torchvision
+import torchvision.transforms as transforms
+from pytorch_lightning import LightningDataModule, Trainer, seed_everything
+from src.lit_net import LitNet
+from torch.utils.data import DataLoader, random_split
+
+# (1) import nvflare lightning client API
+import nvflare.client.lightning as flare
+
+seed_everything(7)
+
+
+DATASET_PATH = "/tmp/nvflare/data"
+BATCH_SIZE = 4
+
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+
+class CIFAR10DataModule(LightningDataModule):
+    def __init__(self, data_dir: str = DATASET_PATH, batch_size: int = BATCH_SIZE):
+        super().__init__()
+        self.data_dir = data_dir
+        self.batch_size = batch_size
+
+    def prepare_data(self):
+        torchvision.datasets.CIFAR10(root=self.data_dir, train=True, download=True, transform=transform)
+        torchvision.datasets.CIFAR10(root=self.data_dir, train=False, download=True, transform=transform)
+
+    def setup(self, stage: str):
+        # Assign train/val datasets for use in dataloaders
+        if stage == "fit" or stage == "validate":
+            cifar_full = torchvision.datasets.CIFAR10(
+                root=self.data_dir, train=True, download=False, transform=transform
+            )
+            self.cifar_train, self.cifar_val = random_split(cifar_full, [0.8, 0.2])
+
+        # Assign test dataset for use in dataloader(s)
+        if stage == "test" or stage == "predict":
+            self.cifar_test = torchvision.datasets.CIFAR10(
+                root=self.data_dir, train=False, download=False, transform=transform
+            )
+
+    def train_dataloader(self):
+        return DataLoader(self.cifar_train, batch_size=self.batch_size)
+
+    def val_dataloader(self):
+        return DataLoader(self.cifar_val, batch_size=self.batch_size)
+
+    def test_dataloader(self):
+        return DataLoader(self.cifar_test, batch_size=self.batch_size)
+
+    def predict_dataloader(self):
+        return DataLoader(self.cifar_test, batch_size=self.batch_size)
+
+
+def main():
+    model = LitNet()
+    cifar10_dm = CIFAR10DataModule()
+    if torch.cuda.is_available():
+        trainer = Trainer(max_epochs=1, accelerator="gpu", devices=1 if torch.cuda.is_available() else None)
+    else:
+        trainer = Trainer(max_epochs=1, devices=None)
+
+    # (2) patch the lightning trainer
+    flare.patch(trainer)
+
+    while flare.is_running():
+        # (3) receives FLModel from NVFlare
+        # Note that we don't need to pass this input_model to trainer
+        # because after flare.patch the trainer.fit/validate will get the
+        # global model internally
+        input_model = flare.receive()
+        print(f"\n[Current Round={input_model.current_round}, Site = {flare.get_site_name()}]\n")
+
+        # (4) evaluate the current global model to allow server-side model selection
+        print("--- validate global model ---")
+        trainer.validate(model, datamodule=cifar10_dm)
+
+        # perform local training starting with the received global model
+        print("--- train new model ---")
+        trainer.fit(model, datamodule=cifar10_dm)
+
+        # test local model
+        print("--- test new model ---")
+        trainer.test(ckpt_path="best", datamodule=cifar10_dm)
+
+        # get predictions
+        print("--- prediction with new best model ---")
+        trainer.predict(ckpt_path="best", datamodule=cifar10_dm)
+
+
+if __name__ == "__main__":
+    main()
+`;
+
+const serverCode_lt = `
+from .base_fedavg import BaseFedAvg
+
+class FedAvg(BaseFedAvg):
+    def run(self) -> None:
+        self.info("Start FedAvg.")
+
+        model = self.load_model()
+        model.start_round = self.start_round
+        model.total_rounds = self.num_rounds
+
+        for self.current_round in range(self.start_round, self.start_round + self.num_rounds):
+            self.info(f"Round {self.current_round} started.")
+            model.current_round = self.current_round
+
+            clients = self.sample_clients(self.min_clients)
+
+            results = self.send_model_and_wait(targets=clients, data=model)
+
+            aggregate_results = self.aggregate(results)
+
+            model = self.update_model(model, aggregate_results)
+
+            self.save_model(model)
+
+        self.info("Finished FedAvg.")
+`;
+
+const jobCode_lt = `
+from src.lit_net import LitNet
+
+from nvflare import FedAvg, FedJob, ScriptExecutor
+
+if __name__ == "__main__":
+    n_clients = 2
+    num_rounds = 2
+    train_script = "src/cifar10_lightning_fl.py"
+
+    job = FedJob(name="cifar10_fedavg_lightning")
+
+    # Define the controller workflow and send to server
+    controller = FedAvg(
+        min_clients=n_clients,
+        num_rounds=num_rounds,
+    )
+    job.to(controller, "server")
+
+    # Define the initial global model and send to server
+    job.to(LitNet(), "server")
+
+    # Add clients
+    for i in range(n_clients):
+        executor = ScriptExecutor(
+            task_script_path=train_script, task_script_args=""  # f"--batch_size 32 --data_path /tmp/data/site-{i}"
+        )
+        job.to(executor, f"site-{i}", gpu=0)
+
+    # job.export_job("/tmp/nvflare/jobs/job_config")
+    job.simulator_run("/tmp/nvflare/jobs/workdir")
 `;
 
 const clientCode_pt = `
@@ -282,7 +440,7 @@ const code_sections = [
 ---
 
 <div class="bg-white py-24 sm:py-24">
-  <div class="mx-auto max-w-8xl px-6 lg:px-8">
+  <div class="mx-auto max-w-[1500px] px-6 lg:px-8">
     <div class="mx-auto max-w-5xl text-center">
       <h2
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-gray-900">
@@ -364,16 +522,13 @@ const code_sections = [
     <!-- Install wrapper -->
     <div id="install-wrapper" class="mx-auto max-w-5xl py-4 text-left"></div>
 
-    <div class="mx-auto max-w-8xl py-4 text-left inline-flex">
+    <div class="mx-auto max-w-[1500px] py-4 text-left inline-flex">
       <!-- Client, Server, Job Tabs -->
-      <ul class="flex-column h-fit border-r space-y -mb-px text-xl font-medium mr-16" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
-        <!-- <li class="" role="presentation">
-            <button class="w-28 inline-block p-7 border-r-2 font-bold text-left" id="client-tab" data-tabs-target="#client-code" type="button" role="tab" aria-controls="profile" aria-selected="false">Client</button>
-        </li> -->
+      <ul class="flex-column h-fit border-r space-y -mb-px text-xl font-medium mr-14 ms-1" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="stroke-nvidia text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="stroke-gray-500 hover:stroke-gray-600 dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
         <li class="" role="presentation">
-          <button class="w-36 inline-block p-7 border-r-2 font-bold text-left" id="client-tab" data-tabs-target="#client-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
+          <button class="w-36 inline-block p-5 border-r-2 font-bold text-left" id="client-tab" data-tabs-target="#client-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
             <span id="default-message" class="inline-flex items-center py-2.5">
-              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2 stroke-nvidia" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v5m-3 0h6M4 11h16M5 15h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1Z"/>
               </svg>              
               Client
@@ -381,9 +536,9 @@ const code_sections = [
           </button>
         </li>
         <li class="" role="presentation">
-          <button class="w-36 inline-block p-7 border-r-2 font-bold text-left" id="server-tab" data-tabs-target="#controller-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
+          <button class="w-36 inline-block p-5 border-r-2 font-bold text-left" id="server-tab" data-tabs-target="#controller-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
             <span id="default-message" class="inline-flex items-center py-2.5">
-              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2 stroke-nvidia" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1M5 12h14M5 12a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1m-2 3h.01M14 15h.01M17 9h.01M14 9h.01"/>
               </svg>                           
               Server
@@ -391,9 +546,9 @@ const code_sections = [
           </button>
         </li>
         <li class="" role="presentation">
-          <button class="w-36 inline-block p-7 border-r-2 font-bold text-left" id="job-tab" data-tabs-target="#job-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
+          <button class="w-36 inline-block p-5 border-r-2 font-bold text-left" id="job-tab" data-tabs-target="#job-code" type="button" role="tab" aria-controls="profile" aria-selected="false">
             <span id="default-message" class="inline-flex items-center py-2.5">
-              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2 stroke-nvidia" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <svg class="w-8 h-8 text-gray-800 dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m5 4-2 2 2 2m4-4 2 2-2 2m5-12v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
               </svg>                          
               Job
