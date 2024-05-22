@@ -509,13 +509,13 @@ const tag_list = [
       <div class="mt-5 mb-10 border-b border-gray-200 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-evenly space-x-10" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
             <li class="me-2" role="presentation">
+              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#examples-wrapper" type="button" role="tab" aria-controls="settings" aria-selected="false">Examples</button>
+            </li>
+            <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold" id="client-tab" data-tabs-target="#tools-wrapper" type="button" role="tab" aria-controls="profile" aria-selected="false">Tools</button>
             </li>
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#deployment-wrapper" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Production</button>
-            </li>
-            <li class="me-2" role="presentation">
-                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#examples-wrapper" type="button" role="tab" aria-controls="settings" aria-selected="false">Examples</button>
             </li>
         </ul>
       </div>
@@ -654,17 +654,12 @@ const tag_list = [
       // Check to see if tutorial matches the search or checked items
       const matchesSearchTerm = tutorial.title.toLowerCase().includes(searchTerm);
 
-      var isInCheckedCategory = checkedCategories.length === 0;
+      // var isInCheckedCategory = checkedCategories.length === 0;
+      var isInCheckedCategory = true;
 
-      // checkedCategories.forEach((tag) => {
-      //   if ((tutorial.tags.includes(tag))) {
-      //     isInCheckedCategory = false;
-      //   }
-      // });
-
-      tutorial.tags.forEach((tag) => {
-        if (checkedCategories.includes(tag)) {
-          isInCheckedCategory = true;
+      checkedCategories.forEach((tag) => {
+        if (!(tutorial.tags.includes(tag))) {
+          isInCheckedCategory = false;
         }
       });
 
