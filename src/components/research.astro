@@ -10,6 +10,19 @@ import Sun from '../images/research/sun.jpg'
 
 const case_studies = [
   {
+    id: "exam_ai",
+    title: "EXAM AI Model for Predicting Oxygen Requirements in COVID Patients",
+    subheader: "AI model to predict oxygen requirements",
+    problem: "During COVID-19, how do we know which patients will need a higher level of care in the near future, despite perhaps presenting with minimal symptoms.",
+    team: "NVIDIA researchers, Massachusetts General Brigham Hospital",
+    task: "Train a previously developed AI model that determines whether a person showing up in the emergency room with COVID-19 symptoms will need supplemental oxygen hours or even days after an initial exam.",
+    approach: "A separate server, hosted on AWS, held the global deep neural network, and each client-site got a copy of the model to train on its own dataset. Federated Learning is used to perform the training.",
+    result: "Training was completed in two weeks, resulting in a global model with .94 Area Under the Curve (AUC), resulting in excellent prediction for the level of oxygen required by incoming patients.",
+    reference: "Federated learning for predicting clinical outcomes in patients with COVID-19",
+    link: "https://doi.org/10.1038/s41591-021-01506-3",
+    image: ExamFL,
+  },
+  {
     id: "adops",
     title: "ADOPS (ACR DASA OSU Partners HealthCare Stanford)",
     subheader: "Breast Mammography AI Model. Early detection: breast density classification Improvement",
@@ -54,19 +67,6 @@ const case_studies = [
     result: "The global Federated Learning model achieved a segmentation performance of 82.3% Dice score on healthy pancreatic patients on average.",
     image: Pancreas,
   },
-  {
-    id: "exam_ai",
-    title: "EXAM AI Model for Predicting Oxygen Requirements in COVID Patients",
-    subheader: "AI model to predict oxygen requirements",
-    problem: "During COVID-19, how do we know which patients will need a higher level of care in the near future, despite perhaps presenting with minimal symptoms.",
-    team: "NVIDIA researchers, Massachusetts General Brigham Hospital",
-    task: "Train a previously developed AI model that determines whether a person showing up in the emergency room with COVID-19 symptoms will need supplemental oxygen hours or even days after an initial exam.",
-    approach: "A separate server, hosted on AWS, held the global deep neural network, and each client-site got a copy of the model to train on its own dataset. Federated Learning is used to perform the training.",
-    result: "Training was completed in two weeks, resulting in a global model with .94 Area Under the Curve (AUC), resulting in excellent prediction for the level of oxygen required by incoming patients.",
-    reference: "Federated learning for predicting clinical outcomes in patients with COVID-19",
-    link: "https://doi.org/10.1038/s41591-021-01506-3",
-    image: ExamFL,
-  }
 ];
 
 ---
@@ -170,32 +170,17 @@ const case_studies = [
         </p>
 
         <ul class="ml-12 list-disc text-lg mt-4 text-slate-600 m-auto">
-          <li>ADOPS (ACR DASA OSU Partners HealthCare Stanford)</li>
-          <li>FAIRVIEW</li>
-          <li>SUN Initiative (SUNY UCLA NIH) Prostate Model</li>
-          <li>Nagoya University & National Taiwan University Pancreas Model</li>
-          <li>EXAM (EMR CXR AI Model) Oxygen Requirement Model following COVID</li>
+          {
+            case_studies.map((item) => (
+              <li>{item.title}</li>
+            ))
+          }
         </ul>
 
         <div
           class="">
           {
             case_studies.map((item) => (
-              // <article class="flex max-w-xl flex-col items-start justify-between border-l border-slate-400 pl-6">
-              //   <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-              //     <a href="#">{item.title}</a>
-              //   </h3>
-              //   <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-              //     {item.description}
-              //   </p>
-              //   <p class="mt-6">
-              //     <a
-              //       href={item.link}
-              //       class="text-sm font-semibold leading-6 text-green-600">
-              //       Read more <span aria-hidden="true">→</span>
-              //     </a>
-              //   </p>
-              // </article>
               <div class="mt-20">
                 <h3 class="mt-3 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                   {item.title}
