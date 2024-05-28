@@ -119,12 +119,18 @@ const deployment = [
     description: "Demonstrate the job-level authorization policy and secure mode.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/job-level-authorization/README.md"
   },
+  {
+    title: "Federated Learning Hub",
+    tags: ["advanced", "deployment"],
+    description: "Allow hierarchical interaction between several levels of nvflare FL systems, e.g. Tier-1 (hub) and Tier-2 (sub-systems).",
+    link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/fl_hub/README.md"
+  },
 ]
 
 const examples = [
   {
     title: "Step-by-Step CIFAR10 Examples",
-    tags: ["beginner", "pytorch"],
+    tags: ["beginner", "pytorch", "deep-learning"],
     description: "Step-by-step examples series with CIFAR-10 (image data) to showcase different FLARE features, workflows, and APIs."
   },
   {
@@ -146,37 +152,37 @@ const examples = [
   },
   {
     title: "Hello Cross-Site Validation",
-    tags: ["beginner", "numpy", "controller", "executor"],
+    tags: ["beginner", "numpy", "controller", "executor", "deep-learning"],
     description: "Example using the CrossSiteModelEval workflow for cross site evaluation. Show option to use previous results without training workflow.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/hello-world/hello-numpy-cross-val/README.md"
   },
   {
     title: "Hello Cyclic Weight Transfer",
-    tags: ["beginner", "tensorflow", "controller", "executor"],
+    tags: ["beginner", "tensorflow", "controller", "executor", "deep-learning"],
     description: "Example using the CyclicController workflow to implement Cyclic Weight Transfer.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/hello-world/hello-cyclic/README.md"
   },
   {
     title: "Hello PyTorch",
-    tags: ["beginner", "pytorch", "controller", "executor"],
+    tags: ["beginner", "pytorch", "controller", "executor", "deep-learning"],
     description: "Example using an image classifier with FedAvg and PyTorch as the deep learning training framework.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/hello-world/hello-pt/README.md"
   },
   {
     title: "Hello TensorFlow",
-    tags: ["beginner", "tensorflow", "controller", "executor"],
+    tags: ["beginner", "tensorflow", "controller", "executor", "deep-learning"],
     description: "Example using an image classifier with FedAvg and TensorFlow as the deep learning training framework.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/hello-world/hello-tf2/README.md"
   },
   {
     title: "Simulated Federated Learning with CIFAR-10",
-    tags: ["intermediate", "simulator", "pytorch", "learner", "model-controller-api"],
+    tags: ["intermediate", "simulator", "pytorch", "learner", "model-controller-api", "deep-learning"],
     description: "Running FedAvg, FedProx, FedOpt, and SCAFFOLD algorithms using NVFlare's FL simulator.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/cifar10/cifar10-sim/README.md"
   },
   {
     title: "Real-world Federated Learning with CIFAR-10",
-    tags: ["intermediate", "poc", "pytorch", "learner", "model-controller-api", "homomorphic-encryption"],
+    tags: ["intermediate", "poc", "pytorch", "learner", "model-controller-api", "deep-learning", "homomorphic-encryption"],
     description: "Running FedAvg with streaming of TensorBoard metrics to the server during training and homomorphic encryption.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/cifar10/cifar10-real-world/README.md"
   },
@@ -196,7 +202,7 @@ const examples = [
   },
   {
     title: "Swarm Learning",
-    tags: ["intermediate", "pytorch", "learner"],
+    tags: ["intermediate", "pytorch", "learner", "deep-learning"],
     description:
       "Example using Swarm Learning and Client-Controlled Cross-site Evaluation workflows.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/swarm_learning",
@@ -245,19 +251,19 @@ const examples = [
   },
   {
     title: "NVFlare + MONAI integration",
-    tags: ["advanced", "healthcare", "monai"],
+    tags: ["advanced", "healthcare", "monai", "deep-learning"],
     description: "Using FLARE to train a 3D medical image analysis model using federated averaging (FedAvg) and MONAI Bundle.",
     link: ".https://github.com/NVIDIA/NVFlare/tree/main/examples/integration/monai/README.md"
   },
   {
     title: "Federated Learning with Differential Privacy for BraTS18 segmentation",
-    tags: ["advanced", "healthcare", "differential-privacy", "monai"],
+    tags: ["advanced", "healthcare", "differential-privacy", "monai", "deep-learning"],
     description: "Illustrates the use of differential privacy for training brain tumor segmentation models using federated learning.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/brats18/README.md"
   },
   {
     title: "Federated Learning for Prostate Segmentation from Multi-source Data",
-    tags: ["advanced", "healthcare", "monai"],
+    tags: ["advanced", "healthcare", "monai", "deep-learning"],
     description: "Example of training a multi-institutional prostate segmentation model using FedAvg, FedProx, and Ditto.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/prostate/README.md"
   },
@@ -287,49 +293,43 @@ const examples = [
   },
   {
     title: "NLP-NER",
-    tags: ["advanced", "huggingface"],
+    tags: ["advanced", "huggingface", "deep-learning"],
     description: "Illustrates both BERT and GPT-2 models from Hugging Face on a Named Entity Recognition (NER) task using the NCBI disease dataset.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/nlp-ner/README.md"
   },
   {
-    title: "Federated Learning Hub",
-    tags: ["advanced", "deployment"],
-    description: "Allow hierarchical interaction between several levels of nvflare FL systems, e.g. Tier-1 (hub) and Tier-2 (sub-systems).",
-    link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/fl_hub/README.md"
-  },
-  {
     title: "Parameter Efficient Fine Turning",
-    tags: ["advanced", "nemo"],
+    tags: ["advanced", "nemo", "deep-learning"],
     description: "Example utilizing NeMo's PEFT methods to adapt a LLM to a downstream task.",
     link: ".https://github.com/NVIDIA/NVFlare/tree/main/examples/integration/nemo/examples/peft"
   },
   {
     title: "Prompt-Tuning Example",
-    tags: ["advanced", "nemo"],
+    tags: ["advanced", "nemo", "deep-learning"],
     description: "Example for using FLARE with NeMo for LLM prompt learning.",
     link: ".https://github.com/NVIDIA/NVFlare/tree/main/examples/integration/nemo/examples/prompt_learning"
   },
   {
     title: "Supervised Fine Tuning (SFT)",
-    tags: ["advanced", "nemo"],
+    tags: ["advanced", "nemo", "deep-learning"],
     description: "Example to fine-tune all parameters of a LLM on supervised data.",
     link: ".https://github.com/NVIDIA/NVFlare/tree/main/examples/integration/nemo/examples/supervised_fine_tuning"
   },
   {
     title: "LLM Tuning via HuggingFace SFT Trainer",
-    tags: ["advanced", "huggingface"],
+    tags: ["advanced", "huggingface", "deep-learning"],
     description: "Example for using FLARE with a HuggingFace trainer for LLM tuning tasks.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/llm_hf"
   },
   {
     title: "Federated GNN: Protein Classification",
-    tags: ["advanced", "healthcare", "pytorch-geometric"],
+    tags: ["advanced", "healthcare", "pytorch-geometric", "deep-learning"],
     description: "Example using GNNs for Protein Classification using PPI dataset using GraphSAGE.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/gnn#federated-gnn-on-graph-dataset-using-inductive-learning"
   },
   {
     title: "Federated GNN: Financial Transaction Classification",
-    tags: ["advanced", "finance", "pytorch-geometric"],
+    tags: ["advanced", "finance", "pytorch-geometric", "deep-learning"],
     description: "Example using GNNs for Financial Transaction Classification with Elliptic++ dataset using GraphSAGE.",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/gnn#federated-gnn-on-graph-dataset-using-inductive-learning"
   },
@@ -415,13 +415,13 @@ const tag_list = [
       <div class="mt-5 mb-10 border-b border-gray-200 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-evenly space-x-10" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
             <li class="me-2" role="presentation">
-              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#examples-wrapper" type="button" role="tab" aria-controls="settings" aria-selected="false">Examples</button>
+              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#examples-wrapper" type="button" role="tab" aria-controls="settings" aria-selected="false">Algorithms</button>
             </li>
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold" id="client-tab" data-tabs-target="#tools-wrapper" type="button" role="tab" aria-controls="profile" aria-selected="false">Tools</button>
             </li>
             <li class="me-2" role="presentation">
-                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#deployment-wrapper" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Production</button>
+                <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#deployment-wrapper" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Deployment</button>
             </li>
         </ul>
       </div>

@@ -5,33 +5,63 @@ const walkthrough = [
   {
     id: "step1",
     step: "Step 1",
-    title: "Introduction to FLARE",
+    title: "Getting Started: FedAvg and CIFAR-10",
     description:
-      "In this introductory guide, we cover the core concepts and fundamentals of FLARE to help get you started.",
+      "In this introductory guide, we cover the core concepts and fundamentals of FLARE and dive into the CIFAR-10 PyTorch example FL code above.",
     button_text: "View Notebook",
-    link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
-    video: "https://nvidia-my.sharepoint.com/personal/hroth_nvidia_com/_layouts/15/embed.aspx?UniqueId=7a6067cf-940c-4e68-9981-27e634c900d7&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+    link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
+    video: "https://nvidia-my.sharepoint.com/personal/hroth_nvidia_com/_layouts/15/embed.aspx?UniqueId=7a6067cf-940c-4e68-9981-27e634c900d7&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
   },
   {
     id: "step2",
     step: "Step 2",
-    title: "Using the FLARE APIs",
+    title: "Federated Machine Learning: Kaplan-Meier Analysis",
     description:
-      "Learn about the user-friendly Client, Controller, and Job APIs designed to easily enable programming for a federated setting.",
-    button_text: "View Notebook",
-    link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
-    video: "https://www.youtube.com/embed/videoseries?si=sBwJDfii8o-E1T0J&amp;list=PLZHnYvH1qtOYPPHRaHf9yPQkIcGpIUpdL",
+      "Learn how to formulate a data analysis algorithm under a federated setting using the survival analysis tool Kaplan-Meier.",
+    button_text: "View Example",
+    link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/kaplan-meier-he",
+    video: "https://nvidia-my.sharepoint.com/personal/ziyuex_nvidia_com/_layouts/15/embed.aspx?UniqueId=fd7e3e23-df96-40d4-a1ce-0440c98c3bd2&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
   },
   {
     id: "step3",
     step: "Step 3",
-    title: "End-to-end Federated Learning Application",
+    title: "From Simulation to Real-World",
     description:
-      "Finally, we showcase a complete end-to-end example of how to use FLARE to create a federated learning application.",
+      "Finally, we cover the next steps in taking federated learning from simulation to the real world.",
     button_text: "View Notebook",
     link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
     video: "https://www.youtube.com/embed/videoseries?si=Kh5pFJBo1PK8hR0H&amp;list=PLZHnYvH1qtObpziP9mZ3RYOefIj-6vfbV",
   },
+  // {
+  //   id: "step1",
+  //   step: "Step 1",
+  //   title: "Introduction to FLARE",
+  //   description:
+  //     "In this introductory guide, we cover the core concepts and fundamentals of FLARE to help get you started.",
+  //   button_text: "View Notebook",
+  //   link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
+  //   video: "https://nvidia-my.sharepoint.com/personal/hroth_nvidia_com/_layouts/15/embed.aspx?UniqueId=7a6067cf-940c-4e68-9981-27e634c900d7&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+  // },
+  // {
+  //   id: "step2",
+  //   step: "Step 2",
+  //   title: "Using the FLARE APIs",
+  //   description:
+  //     "Learn about the user-friendly Client, Controller, and Job APIs designed to easily enable programming for a federated setting.",
+  //   button_text: "View Notebook",
+  //   link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
+  //   video: "https://nvidia-my.sharepoint.com/personal/ziyuex_nvidia_com/_layouts/15/embed.aspx?UniqueId=fd7e3e23-df96-40d4-a1ce-0440c98c3bd2&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+  // },
+  // {
+  //   id: "step3",
+  //   step: "Step 3",
+  //   title: "End-to-end Federated Learning Application",
+  //   description:
+  //     "Finally, we showcase a complete end-to-end example of how to use FLARE to create a federated learning application.",
+  //   button_text: "View Notebook",
+  //   link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
+  //   video: "https://www.youtube.com/embed/videoseries?si=Kh5pFJBo1PK8hR0H&amp;list=PLZHnYvH1qtObpziP9mZ3RYOefIj-6vfbV",
+  // },
 ];
 ---
 
@@ -81,7 +111,7 @@ const walkthrough = [
                 {item.description}
               </p>
             </button>
-            <p class="mt-6" role="presentation">
+            <p class="mt-10" role="presentation">
                 <a
                   href={item.link}
                   class="text-sm font-semibold leading-6 text-green-600">
@@ -92,36 +122,6 @@ const walkthrough = [
         ))
       }
     </div>
-
-    <!-- <div
-      class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-3 pt-12">
-      {
-        walkthrough.map((item) => (
-          <div>
-            <span class="flex items-center text-sm font-semibold leading-6 text-nvidia">
-              {item.step}
-              <div
-                class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0"
-                aria-hidden="true"
-              />
-            </span>
-            <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-              {item.title}
-            </p>
-            <p class="mt-1 text-base leading-7 text-gray-600">
-              {item.description}
-            </p>
-            <p class="mt-6">
-              <a
-                href={item.link}
-                class="text-sm font-semibold leading-6 text-green-600">
-                {item.button_text} <span aria-hidden="true">→</span>
-              </a>
-            </p>
-          </div>
-        ))
-      }
-    </div> -->
 
     <div>
       {
@@ -138,15 +138,6 @@ const walkthrough = [
         ))
       }
     </div>
-
-    <!-- <div id="video1" class="mt-24 flex flex-wrap place-content-center">
-       <iframe
-         class="h-3/4 w-3/4 aspect-video"
-         src="https://www.youtube.com/embed/videoseries?si=nEwRMgLr3MFxMhOC&amp;list=PL5B692fm6--sM4JjMl7bfIKoHQ9hmIUdo"
-         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-         allowfullscreen>
-       </iframe>
-    </div> -->
   
     <div class="mt-32 text-center">
       <p class="text-lg mt-4 mb-8 text-slate-600 w-3/4 m-auto">

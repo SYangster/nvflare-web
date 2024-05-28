@@ -13,10 +13,9 @@ const case_studies = [
     id: "exam_ai",
     title: "EXAM AI Model for Predicting Oxygen Requirements in COVID Patients",
     subheader: "AI model to predict oxygen requirements",
-    problem: "During COVID-19, how do we know which patients will need a higher level of care in the near future, despite perhaps presenting with minimal symptoms.",
     team: "NVIDIA researchers, Massachusetts General Brigham Hospital",
-    task: "Train a previously developed AI model that determines whether a person showing up in the emergency room with COVID-19 symptoms will need supplemental oxygen hours or even days after an initial exam.",
-    approach: "A separate server, hosted on AWS, held the global deep neural network, and each client-site got a copy of the model to train on its own dataset. Federated Learning is used to perform the training.",
+    problem: "During COVID-19, it was challenging to determine which patients will need a higher level of care in the near future, despite perhaps presenting with minimal symptoms. Therefore the goal was to train a previously developed AI model that determines whether a person showing up in the emergency room with COVID-19 symptoms will need supplemental oxygen hours or even days after an initial exam.",
+    approach: "The approach included a separate server, hosted on AWS, which held the global deep neural network. Each client-site got a copy of the model to train on its own dataset. Federated Learning is used to perform the training.",
     result: "Training was completed in two weeks, resulting in a global model with .94 Area Under the Curve (AUC), resulting in excellent prediction for the level of oxygen required by incoming patients.",
     reference: "Federated learning for predicting clinical outcomes in patients with COVID-19",
     link: "https://doi.org/10.1038/s41591-021-01506-3",
@@ -26,8 +25,8 @@ const case_studies = [
     id: "adops",
     title: "ADOPS (ACR DASA OSU Partners HealthCare Stanford)",
     subheader: "Breast Mammography AI Model. Early detection: breast density classification Improvement",
-    problem: "Breast Mammography AI Model Early detection through mammography is critical when it comes to reducing breast cancer deaths, but breast density can make it harder to detect the disease.",
     team: "The American College of Radiology (ACR), Diagnosticos da America (DASA), Ohio State University (OSU), Partners HealthCare (PHS), and Stanford University",
+    problem: "Breast Mammography AI Model Early detection through mammography is critical when it comes to reducing breast cancer deaths, but breast density can make it harder to detect the disease.",
     approach: "Using NVIDIA Clara Federated Learning. The team used a 2D mammography classification model provided by PHS, which was trained using NVIDIA Clara Train on NVIDIA GPUs. The model was then retrained using Clara Federated Learning at PHS, as well as the client-sites, without any data being transferred.",
     result: "Each institution obtained a better performing model that had overall superior predictive power on their own local dataset. In doing so, Federated Learning enabled improved breast density classification from mammograms, which could lead to better breast cancer risk assessment.",
     image: Mammography,
@@ -39,20 +38,18 @@ const case_studies = [
     id: "um_fairview",
     title: "University of Minnesota and Fairview X-Ray COVID AI Model",
     subheader: "Improve AI models for COVID-19 diagnosis based on chest X-rays",
-    problem: "To improve real-world AI models for COVID-19 diagnosis based on chest X-rays.",
     team: "University of Minnesota and Fairview Mhealth, Indiana University (Indiana, USA), and Emory University (Georgia, USA)",
-    approach: "Using NVFlare Federated Learning Framework. This study leverages a three-phase pipeline composed of U-Net lung segmentation, a conditional Generative Adversarial Network (cGAN) for outlier detection, and a DenseNet121 COVID-19 Classification model.",
-    deployment: "This classification model was trained with a federation of Federated Learning server and Federated Learning clients at University of Minnesota and Fairview (Minnesota, USA), with additional participant clients at Indiana University (Indiana, USA) and Emory University (Georgia, USA) using a mix of cloud (AWS/Azure) and local servers.",
-    dataset: "The aggregate multi-institutional dataset consists of approximately 80,000 labeled images with a 30/70% positive/negative COVID classification.",
+    problem: "The goal of this study was to  improve real-world AI models for COVID-19 diagnosis based on chest X-rays.",
+    approach: "This study leverages a three-phase pipeline composed of U-Net lung segmentation, a conditional Generative Adversarial Network (cGAN) for outlier detection, and a DenseNet121 COVID-19 Classification model. The aggregate multi-institutional dataset consists of approximately 80,000 labeled images with a 30/70% positive/negative COVID classification. This classification model was trained with a federation of Federated Learning server and Federated Learning clients at University of Minnesota and Fairview (Minnesota, USA), with additional participant clients at Indiana University (Indiana, USA) and Emory University (Georgia, USA) using a mix of cloud (AWS/Azure) and local servers.",
     result: "Initial results show an improvement in performance of the global model of 5% AUROC and 8% AUPRC on the UMN local dataset as compared to the UMN local model.",
-    image: Pancreas,
+    image: "",
   },
   {
     id: "sun_prostate",
     title: "SUN Initiative Prostate Cancer AI Model",
     subheader: "Federated segmentation model",
-    problem: "Prostate cancer is a common cancer of the prostate gland in men. Accurate segmentation of the prostate gland is useful for developing AI models to help in detection of Prostate cancer.",
     team: "SUNY, UCLA, NIH",
+    problem: "Prostate cancer is a common cancer of the prostate gland in men. Accurate segmentation of the prostate gland is useful for developing AI models to help in detection of Prostate cancer.",
     approach: "In this initiative, we tested the hypothesis that Federated Learning can be used to train a segmentation model comparable to one trained from a pooled data (PD) set.",
     result: "Equivalent performance from both the experimental Federated Learning and benchmark PD models, showing the feasibility of training an AI model in a Federated Learning approach.",
     image: Sun,
@@ -62,7 +59,7 @@ const case_studies = [
     title: "CT Pancreas Segmentation AI Model",
     subheader: "Automated segmentation model of the pancreas and pancreatic tumors in abdominal CT",
     team: "National Taiwan University, Taiwan, and Nagoya University, Japan",
-    task: "Build models for the automated segmentation of the pancreas and pancreatic tumors in abdominal CT.",
+    problem: "The aim of this experiment is to build models for the automated segmentation of the pancreas and pancreatic tumors in abdominal CT.",
     approach: "A 3D segmentation model based on neural architecture search developed by NVIDIA's Applied Research team was collaboratively trained using Federated Learning.",
     result: "The global Federated Learning model achieved a segmentation performance of 82.3% Dice score on healthy pancreatic patients on average.",
     image: Pancreas,
@@ -188,11 +185,10 @@ const case_studies = [
                 <p class="mt-5 text-lg leading-6 text-slate-600">
                   {item.subheader} <br>
                   {item.team} <br>
-                  <div class="flex justify-center">
+                  <div class="flex justify-left">
                     <img class="mt-10 items-center w-2/3 mb-10" src={item.image.src} alt="NVFLARE research">
                   </div>
-                  {item.problem}{item.approach}
-                  {item.deployment}{item.dataset}
+                  {item.problem}{" "+item.approach}
                   <br><br>
                   {item.result}
                   <br><br>
