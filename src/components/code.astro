@@ -17,6 +17,18 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 
 import GoogleColab from '../images/google_colab.svg.png'
 
+// Prism.plugins.customClass.map({
+// 	keyword: 'special-keyword',
+// 	string: 'my-string'
+// });
+
+// Prism.plugins.customClass.prefix('prism--')
+// Prism.plugins.customClass.map({
+// 	keyword: 'line-numbers',
+// 	string: 'string_ch29s',
+// 	comment: 'comment_93jsa'
+// });
+
 
 const installCode_pt = `
 pip install nvflare torch torchvision
@@ -118,7 +130,11 @@ def main():
                     print(f"[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}")
                     global_step = input_model.current_round * steps + epoch * len(trainloader) + i
 
-                    summary_writer.add_scalar(tag="loss_for_each_batch", scalar=running_loss, global_step=global_step)
+                    summary_writer.add_scalar(
+                        tag="loss_for_each_batch",
+                        scalar=running_loss, 
+                        global_step=global_step
+                    )
                     running_loss = 0.0
 
         print("Finished Training")
@@ -353,12 +369,17 @@ if __name__ == "__main__":
     # Add clients
     for i in range(n_clients):
         executor = ScriptExecutor(
-            task_script_path=train_script, task_script_args=""  # f"--batch_size 32 --data_path /tmp/data/site-{i}"
+            task_script_path=train_script, task_script_args=""
+            # f"--batch_size 32 --data_path /tmp/data/site-{i}"
         )
         job.to(executor, f"site-{i}", gpu=0)
 
     # job.export_job("/tmp/nvflare/jobs/job_config")
     job.simulator_run("/tmp/nvflare/jobs/workdir")
+`;
+
+const runCode_pt = `
+python3 cifar10_pt_fl.py
 `;
 
 // ################################################################################################
@@ -567,12 +588,17 @@ if __name__ == "__main__":
     # Add clients
     for i in range(n_clients):
         executor = ScriptExecutor(
-            task_script_path=train_script, task_script_args=""  # f"--batch_size 32 --data_path /tmp/data/site-{i}"
+            task_script_path=train_script, task_script_args=""
+            # f"--batch_size 32 --data_path /tmp/data/site-{i}"
         )
         job.to(executor, f"site-{i}", gpu=0)
 
     # job.export_job("/tmp/nvflare/jobs/job_config")
     job.simulator_run("/tmp/nvflare/jobs/workdir")
+`;
+
+const runCode_lt = `
+python3 cifar10_lt_fl.py
 `;
 
 // ################################################################################################
@@ -645,7 +671,8 @@ def main():
         # (5) evaluate aggregated/received model
         _, test_global_acc = model.evaluate(test_images, test_labels, verbose=2)
         print(
-            f"Accuracy of the received model on round {input_model.current_round} on the 10000 test images: {test_global_acc * 100} %"
+            f"Accuracy of the received model on round {input_model.current_round} on the 10000 test images: 
+            {test_global_acc * 100} %"
         )
 
         model.fit(train_images, train_labels, epochs=1, validation_data=(test_images, test_labels))
@@ -722,7 +749,8 @@ if __name__ == "__main__":
     # Add clients
     for i in range(n_clients):
         executor = ScriptExecutor(
-            task_script_path=train_script, task_script_args=""  # f"--batch_size 32 --data_path /tmp/data/site-{i}"
+            task_script_path=train_script, task_script_args=""
+            # f"--batch_size 32 --data_path /tmp/data/site-{i}"
         )
         job.to(executor, f"site-{i}", gpu=0)
 
@@ -730,70 +758,81 @@ if __name__ == "__main__":
     job.simulator_run("/tmp/nvflare/jobs/workdir")
 `;
 
+const runCode_tf = `
+python3 cifar10_tf_fl.py
+`;
 
-const highlightedInstallCode_pt = Prism.highlight(
-  installCode_pt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedClientCode_pt = Prism.highlight(
-  clientCode_pt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedServerCode_pt = Prism.highlight(
-  serverCode_pt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedJobCode_pt = Prism.highlight(
-  jobCode_pt,
-  Prism.languages.python,
-  "python"
-);
 
-// TODO refactor this
-const highlightedInstallCode_lt = Prism.highlight(
-  installCode_lt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedClientCode_lt = Prism.highlight(
-  clientCode_lt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedServerCode_lt = Prism.highlight(
-  serverCode_lt,
-  Prism.languages.python,
-  "python"
-);
-const highlightedJobCode_lt = Prism.highlight(
-  jobCode_lt,
-  Prism.languages.python,
-  "python"
-);
+// const highlightedInstallCode_pt = Prism.highlight(
+//   installCode_pt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedInstallCode_pt = installCode_pt;
 
-const highlightedInstallCode_tf = Prism.highlight(
-  installCode_tf,
-  Prism.languages.python,
-  "python"
-);
-const highlightedClientCode_tf = Prism.highlight(
-  clientCode_tf,
-  Prism.languages.python,
-  "python"
-);
-const highlightedServerCode_tf = Prism.highlight(
-  serverCode_tf,
-  Prism.languages.python,
-  "python"
-);
-const highlightedJobCode_tf = Prism.highlight(
-  jobCode_tf,
-  Prism.languages.python,
-  "python"
-);
+// const highlightedClientCode_pt = Prism.highlight(
+//   clientCode_pt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedServerCode_pt = Prism.highlight(
+//   serverCode_pt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedJobCode_pt = Prism.highlight(
+//   jobCode_pt,
+//   Prism.languages.python,
+//   "python"
+// );
+// // const highlightedRunCode_pt = Prism.highlight(
+// //   runCode_pt,
+// //   Prism.languages.python,
+// //   "python"
+// // );
+
+// // TODO refactor this
+// const highlightedInstallCode_lt = Prism.highlight(
+//   installCode_lt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedClientCode_lt = Prism.highlight(
+//   clientCode_lt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedServerCode_lt = Prism.highlight(
+//   serverCode_lt,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedJobCode_lt = Prism.highlight(
+//   jobCode_lt,
+//   Prism.languages.python,
+//   "python"
+// );
+
+// const highlightedInstallCode_tf = Prism.highlight(
+//   installCode_tf,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedClientCode_tf = Prism.highlight(
+//   clientCode_tf,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedServerCode_tf = Prism.highlight(
+//   serverCode_tf,
+//   Prism.languages.python,
+//   "python"
+// );
+// const highlightedJobCode_tf = Prism.highlight(
+//   jobCode_tf,
+//   Prism.languages.python,
+//   "python"
+// );
 
 const frameworks = [
   {
@@ -806,7 +845,7 @@ const frameworks = [
         title: "Installation",
         description:
           "Install the required PyTorch dependencies for this example.",
-        code: highlightedInstallCode_pt,
+        code: installCode_pt,
       },
       {
         id: "client-pytorch",
@@ -815,7 +854,8 @@ const frameworks = [
         title: "Client Code (cifar10_pt_fl.py)",
         description:
           "We use the Client API to convert the centralized training PyTorch code into federated learning code with only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training and validation, and then send the model back to FLARE.",
-        code: highlightedClientCode_pt,
+        code: clientCode_pt,
+        highlighted_lines: "29,55,58,60,136-140,142",
       },
       {
         id: "server-pytorch",
@@ -824,7 +864,8 @@ const frameworks = [
         title: "Server Code (fedavg.py)",
         description:
           "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
-        code: highlightedServerCode_pt,
+        code: serverCode_pt,
+        highlighted_lines: "7,17,23",
       },
       {
         id: "job-pytorch",
@@ -833,7 +874,16 @@ const frameworks = [
         title: "Job Code (fedavg_cifar10_pt_job.py)",
         description:
           "Lastly we construct our FLARE job with our 'cifar10_pt_fl.py' client script and 'FedAvg' server controller. We then run the job with the FL simulator.",
-        code: highlightedJobCode_pt,
+        code: jobCode_pt,
+      },
+      {
+        id: "run-pytorch",
+        type: "run",
+        framework: "pytorch",
+        title: "Run the Job",
+        description:
+          "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+        code: runCode_pt,
       },
     ],
   },
@@ -847,7 +897,7 @@ const frameworks = [
         title: "Installation",
         description:
           "Install the required PyTorch Lightning dependencies for this example.",
-        code: highlightedInstallCode_lt,
+        code: installCode_lt,
       },
       {
         id: "client-lightning",
@@ -856,7 +906,8 @@ const frameworks = [
         title: "Client Code (cifar10_lightning_fl.py)",
         description:
           "We use the Client API to convert the centralized training PyTorch Lightning code into federated learning code with only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training and validation, and then send the model back to FLARE.",
-        code: highlightedClientCode_lt,
+        code: clientCode_lt,
+        highlighted_lines: "97,116,118,123",
       },
       {
         id: "server-lightning",
@@ -865,7 +916,8 @@ const frameworks = [
         title: "Server Code (fedavg.py)",
         description:
           "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
-        code: highlightedServerCode_lt,
+        code: serverCode_lt,
+        highlighted_lines: "7,17,23",
       },
       {
         id: "job-lightning",
@@ -874,7 +926,16 @@ const frameworks = [
         title: "Job Code (fedavg_cifar10_lightning_job.py)",
         description:
           "Lastly we construct our FLARE job with our 'cifar10_lightning_fl.py' client script and 'FedAvg' server controller. We then run the job with the FL simulator.",
-        code: highlightedJobCode_lt,
+        code: jobCode_lt,
+      },
+      {
+        id: "run-lightning",
+        type: "run",
+        framework: "lightning",
+        title: "Run the Job",
+        description:
+        "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+        code: runCode_lt,
       },
     ],
   },
@@ -888,7 +949,7 @@ const frameworks = [
         title: "Installation",
         description:
           "Install the required TensorFlow dependencies for this example.",
-        code: highlightedInstallCode_tf,
+        code: installCode_tf,
       },
       {
         id: "client-tensorflow",
@@ -897,7 +958,8 @@ const frameworks = [
         title: "Client Code (cifar10_tf_fl.py)",
         description:
           "We use the Client API to convert the centralized training TensorFlow code into federated learning code with only a few lines of changes. Essentially the client will receive a model from FLARE, perform local training and validation, and then send the model back to FLARE.",
-        code: highlightedClientCode_tf,
+        code: clientCode_tf,
+        highlighted_lines: "31,46,49,50,78-80,82",
       },
       {
         id: "server-tensorflow",
@@ -906,7 +968,8 @@ const frameworks = [
         title: "Server Code (fedavg.py)",
         description:
           "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
-        code: highlightedServerCode_tf,
+        code: serverCode_tf,
+        highlighted_lines: "7,17,23",
       },
       {
         id: "job-tensorflow",
@@ -915,7 +978,16 @@ const frameworks = [
         title: "Job Code (fedavg_cifar10_tf_job.py)",
         description:
           "Lastly we construct our FLARE job with our 'cifar10_tf_fl.py' client script and 'FedAvg' server controller. We then run the job with the FL simulator.",
-        code: highlightedJobCode_tf,
+        code: jobCode_tf,
+      },
+      {
+        id: "run-tensorflow",
+        type: "run",
+        framework: "tensorflow",
+        title: "Run the Job",
+        description:
+        "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+        code: runCode_tf,
       },
     ],
   }
@@ -928,7 +1000,7 @@ const frameworks = [
     <div class="mx-auto max-w-5xl text-center">
       <h2
         class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-gray-900">
-        Quickstart
+        Example Code
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
         Quickly get started with these example code blocks below, where we showcase how simple it is to adapt
@@ -937,7 +1009,11 @@ const frameworks = [
       </p>
     </div>
 
-    <div id="" class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-center mt-4">
+    <!-- <div id="test1div" class="hidden"><pre data-line="1-4" id="test1" class="line-numbers" style="background: white"><code class="language-python">{clientCode_pt}</code></pre></div>
+    <pre data-line="1-4" id="test2" class="line-numbers" style="background: white"><code class="language-python">{clientCode_tf}</code></pre>
+    <pre data-line="1-4" id="test3" class="line-numbers" style="background: white"><code class="language-python">{jobCode_tf}</code></pre> -->
+
+    <div id="" class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-center mt-4 space-x-3">
 
       <!-- Framework Dropdown -->
       <button id="dropdownFrameworkButton" data-dropdown-toggle="framework-dropdown" class="text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-1 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
@@ -946,9 +1022,9 @@ const frameworks = [
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 8-4 4 4 4m8 0 4-4-4-4m-2-3-4 14"/>
             </svg>
             <!-- Framework Label -->
-            <span id="framework-pytorch-label" class="text-xs font-semibold w-16">PyTorch</span>
-            <span id="framework-lightning-label" class="text-xs font-semibold w-16 hidden">Lightning</span>
-            <span id="framework-tensorflow-label" class="text-xs font-semibold w-16 hidden">TensorFlow</span>
+            <span id="framework-pytorch-label" class="text-sm font-semibold w-20">PyTorch</span>
+            <span id="framework-lightning-label" class="text-sm font-semibold w-20 hidden">Lightning</span>
+            <span id="framework-tensorflow-label" class="text-sm font-semibold w-20 hidden">TensorFlow</span>
             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
             </svg>
@@ -970,12 +1046,12 @@ const frameworks = [
       </div>
 
       <!-- Google Colab Button -->
-      <a href="https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb" class="text-xs font-semibold text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+      <a href="https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/getting_started/pt/nvflare_pt_getting_started.ipynb" class="text-xs font-semibold text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
         <span id="default-message" class="inline-flex items-center">
           <svg class="w-0 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
               <img class="w-6 me-1.5" src={GoogleColab.src} alt="NVIDIA logo">
           </svg>
-          <span class="text-xs font-semibold">Run in Google Colab</span>
+          <span class="text-sm font-semibold">Run in Google Colab</span>
         </span>
       </a>
 
@@ -985,7 +1061,7 @@ const frameworks = [
           <svg class="w-4 h-4 text-black dark:text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
           </svg>
-          <span class="text-xs font-semibold">View on Github</span>
+          <span class="text-sm font-semibold">View on Github</span>
         </span>
       </a>
     </div>
@@ -995,7 +1071,7 @@ const frameworks = [
 
     <div class="mx-auto max-w-[1500px] py-4 text-left flex flex-col md:flex-row">
       <!-- Client, Server, Job Tabs -->
-      <ul class="flex md:flex-col w-full flex-wrap md:w-auto h-fit md:border-r border-b md:border-b-0 space-y-0 md:space-y-2 space-x-2 md:space-x-0 text-xl font-medium md:mr-14 ms-1" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="stroke-nvidia text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-b-2 md:border-nvidia border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="stroke-gray-500 hover:stroke-gray-600 dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
+      <ul id="code-tabs" class="flex md:flex-col w-full flex-wrap md:w-auto h-fit md:border-r border-b md:border-b-0 space-y-0 md:space-y-2 space-x-2 md:space-x-0 text-xl font-medium md:mr-14 ms-1" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="stroke-nvidia text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-b-2 md:border-nvidia border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="stroke-gray-500 hover:stroke-gray-600 dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
         <li class="flex-1" role="presentation">
           <button class="w-36 md:w-36 inline-block p-5 border-r-0 md:border-r-2 md:border-b-0 font-bold text-left" id="client-tab" data-tabs-target="#client-wrapper" type="button" role="tab" aria-controls="client" aria-selected="false">
             <span id="default-message" class="inline-flex items-center py-2.5">
@@ -1027,23 +1103,68 @@ const frameworks = [
           </button>
         </li>
       </ul>
-
+      
       <!-- Client wrapper -->
       <div id="client-wrapper" class="py-4 text-left overflow-x-auto"></div>
       <!-- Server wrapper -->
       <div id="server-wrapper" class="py-4 text-left overflow-x-auto hidden"></div>
       <!-- Job wrapper -->
       <div id="job-wrapper" class="py-4 text-left overflow-x-auto hidden"></div>
+
     </div>
+
+    <!-- Run wrapper -->
+    <div id="run-wrapper" class="mx-auto max-w-5xl py-4 text-left">
+      <!-- Google Colab Button -->
+      <!-- <a href="https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb" class="text-md font-semibold text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <span id="default-message" class="inline-flex items-center">
+          <svg class="w-0 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+              <img class="w-6 me-1.5" src={GoogleColab.src} alt="NVIDIA logo">
+          </svg>
+          <span class="text-md font-semibold">Run in Google Colab</span>
+        </span>
+      </a> -->
+    </div>
+    
+
   </div>
 </div>
 
-<script define:vars={{frameworks}} is:inline>
+<!-- <script src="prism.js" type="text/javascript"></script> -->
+
+<!-- <script src="prismjs/prism.js" type="module"></script> -->
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-python.min.js"></script> -->
+
+<script src="prismjs/plugins/line-highlight/prism-line-highlight.min.js"></script>
+
+<script src="prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+
+<script src="prismjs/components/prism-python.min.js"></script>
+
+<script src="prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
+
+<!-- <script src="prismjs/plugins/custom-class/custom-class.js"></script> -->
+
+<script define:vars={{frameworks, GoogleColab}} type="module">
 
   const frameworkLabels = document.querySelectorAll("#framework-labels > span");
   const frameworkDropdown = document.getElementById('framework-dropdown');
+  const codeTabs = document.getElementById("code-tabs");
 
-  frameworkDropdown.addEventListener('click', setCodeBlocks);
+
+  // import Prism from "../../node_modules/prismjs";
+
+  // const testWrapper = document.getElementById('test-wrapper');
+  // const testElement = document.createElement('div');
+  // testElement.innerHTML = `<div id="test1div"><pre data-line="1-4" id="test1" class="line-numbers" style="background: white"><code class="language-python">${clientCode_pt}</code></pre></div>`;
+
+  // testWrapper.appendChild(testElement)
+  //const test1div = document.getElementById("test1div");
+  // Prism.highlightAllUnder(test1);
+  
+
+  
 
   var sectionMap = {
     "install": {
@@ -1061,6 +1182,10 @@ const frameworks = [
     "job": {
       wrapper: document.getElementById('job-wrapper'), 
       elements: [],
+    },
+    "run": {
+      wrapper: document.getElementById('run-wrapper'), 
+      elements: [],
     }
   };
 
@@ -1073,12 +1198,26 @@ const frameworks = [
       sectionMap[code_section.type].wrapper.appendChild(codeElement);
       sectionMap[code_section.type].elements.push(
         {
+          section: code_section,
           code: codeElement, 
           framework: code_section.framework
         }
       );
     });
   });
+
+  //location.reload();
+
+  frameworkDropdown.addEventListener('click', setCodeBlocks);
+  codeTabs.addEventListener('click', setCodeBlocks);
+
+  // frameworkDropdown.addEventListener('click', testFN);
+
+  // function testFN() {
+  //   testWrapper.classList.remove('hidden');
+  //   Prism.highlightAllUnder(testWrapper);
+  // }
+
 
   setCodeBlocks();
 
@@ -1088,27 +1227,58 @@ const frameworks = [
 
     //tutorialElement.className = 'item space-y-2';
 
-    var code_html;
+    var code_html = "";
+    var code_height = "";
+    var run_code = "";
+    var colab_button = "";
+    var line_numbers = "";
+    var highlighted_lines = "";
     if (code_section.type == "install") {
-      code_html = `
-          <code id=${code_section.id + "-block"}>
-            ${code_section.code}
-          </code>
-      `;
+      // code_html = `
+      //     <code id=${code_section.id + "-block"}>
+      //       ${code_section.code}
+      //     </code>
+      // `;
+      code_height = "";
+    } else if (code_section.type == "run") {
+      // code_html = `
+      //     <code id=${code_section.id + "-block"}>
+      //       ${code_section.code}
+      //     </code>
+      // `;
+      colab_button = `
+      <a href="https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/getting_started/pt/nvflare_pt_getting_started.ipynb" class="text-md font-semibold text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <span id="default-message" class="inline-flex items-center">
+          <svg class="w-0 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+              <img class="w-6 me-1.5" src=${GoogleColab.src} alt="NVIDIA logo">
+          </svg>
+          <span class="text-md font-semibold">Run in Google Colab</span>
+        </span>
+      </a>`;
     } else {
+      line_numbers = " line-numbers"
+      if (code_section.hasOwnProperty("highlighted_lines")) {
+        highlighted_lines = "data-line=\"" + code_section.highlighted_lines + "\" "
+        console.log(code_section.title, code_section.type, code_section.hasOwnProperty("highlighted_lines"), highlighted_lines)
+      }
       code_html = `<pre id=${code_section.id + "-block"} set:html=${code_section.code}`;
+      code_height = "h-[680px]";
+      // run_code = `<h2 class="text-2xl font-bold text-gray-900 mt-20 mb-2">Running the FLARE Job</h2>
+      //   <p class="text-slate-900 mb-4">${code_section.running}</p>`;
       //code_html = `<pre data-line="5" id=${code_section.id + "-block"} set:html=${code_section.code}`;
       // code_html = `<pre id=${code_section.id + "-block"} data-line="5"><code>
       //       ${code_section.code}
       //     </code></pre>`
     }
 
+    console.log(`<pre ${highlighted_lines}class="z-0${line_numbers}"`)
+
     codeElement.innerHTML = `
       <div class="mx-auto w-full max-w-5xl py-4 text-left" id="${code_section.id}" role="tabpanel" aria-labelledby="profile-tab">
         <h2 class="text-2xl font-bold text-gray-900 mb-2">${code_section.title}</h2>
         <p class="text-slate-900 mb-4">${code_section.description}</p>
-        <div class="relative rounded-lg border-2 border-nvidia-light border-solid bg-white p-4 text-sm text-pretty overflow-x-auto">
-          <button data-copy-to-clipboard-target="${code_section.id}-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="absolute top-2 right-2 z-0 text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
+        <div class="relative rounded-lg border-2 border-nvidia-light border-solid bg-white text-sm text-pretty overflow-x-auto overflow-y-auto ${code_height}">
+          <button data-copy-to-clipboard-target="${code_section.id}-block" data-copy-to-clipboard-content-type="textContent" data-copy-to-clipboard-html-entities="true" class="absolute top-2 right-2 z-10 text-gray-900 dark:text-gray-400 m-0.5 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:hover:bg-gray-700 rounded-lg py-2 px-2.5 inline-flex items-center justify-center bg-white border-gray-200 border">
             <span id="default-message" class="inline-flex items-center">
               <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                 <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
@@ -1116,12 +1286,15 @@ const frameworks = [
               <span class="text-xs font-semibold">Copy</span>
             </span>
           </button>
-          ${code_html}
+          <pre ${highlighted_lines}class="z-0${line_numbers}" style="background: white"><code id="${code_section.id}-block" class="language-python">${code_section.code}</code></pre>
         </div>
-      </div>`;
+      </div>
+      ${colab_button}`;
 
     return codeElement;
   }
+
+  //location.reload();
 
   // Get active framework based on label of dropdown
   function getActiveFramework() {
@@ -1139,13 +1312,34 @@ const frameworks = [
   // Set code blocks based on active framework
   function setCodeBlocks() {
     const active_framework = getActiveFramework().toLowerCase();
+    console.log("SEAN!!!", sectionMap);
 
     for (const [key, value] of Object.entries(sectionMap)) {
+      // wrapper = value.wrapper
+      // while (wrapper.firstChild) {
+      //   wrapper.removeChild(wrapper.firstChild);
+      // }
       value.elements.forEach((element) => {
+        //console.log("sectionMap", sectionMap);
+       
+        console.log("active_frameworks", active_framework, element.framework);
         if (active_framework == element.framework) {
           element.code.classList.remove('hidden');
+
+          Prism.highlightAllUnder(element.code);
+          console.log("after PRISM");
+          // const codeElement = createCodeElement(element.section);
+          // value.wrapper.appendChild(codeElement);
         } else {
           element.code.classList.add('hidden');
+          console.log("HIDDEN", element.code, element.code.classList);
+
+        //   // element.code = "";
+        //   //value.wrapper.removeChild(element.code)
+        //   // wrapper = value.wrapper
+        //   // while (wrapper.firstChild) {
+        //   //   wrapper.removeChild(wrapper.firstChild);
+        //   // }
         }
       });
     };
