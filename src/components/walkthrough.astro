@@ -5,63 +5,53 @@ const walkthrough = [
   {
     id: "step1",
     step: "Step 1",
-    title: "Getting Started: FedAvg and CIFAR-10",
+    title: "Introduction to FLARE",
     description:
-      "In this introductory guide, we cover the core concepts and fundamentals of FLARE and dive into the CIFAR-10 PyTorch example FL code above.",
+      "In this introductory guide we cover the core concepts and fundamentals of FLARE to help you get started.",
     button_text: "View Notebook",
     link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
-    video: "https://nvidia-my.sharepoint.com/personal/hroth_nvidia_com/_layouts/15/embed.aspx?UniqueId=7a6067cf-940c-4e68-9981-27e634c900d7&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+    video: "https://nvidia-my.sharepoint.com/personal/seyang_nvidia_com/_layouts/15/embed.aspx?UniqueId=5e1b5b52-1bfc-49a2-995d-64cff4370c67&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
   },
   {
     id: "step2",
     step: "Step 2",
-    title: "Federated Machine Learning: Kaplan-Meier Analysis",
+    title: "Server and Client Code",
     description:
-      "Learn how to formulate a data analysis algorithm under a federated setting using the survival analysis tool Kaplan-Meier.",
+      "We dive into an end-to-end federated learning example going through the CIFAR-10 PyTorch FL code shown below.",
+    button_text: "View Notebook",
+    link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
+    video: "https://nvidia-my.sharepoint.com/personal/seyang_nvidia_com/_layouts/15/embed.aspx?UniqueId=b2fd1012-cfd7-4c03-b91a-e922f990df3a&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+  },
+  {
+    id: "step3",
+    step: "Step 3",
+    title: "FedJob and Simulator",
+    description:
+      "Formulate a FLARE job and easily run it with the multi-process simulator.",
+    button_text: "View Notebook",
+    link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
+    video: "https://nvidia-my.sharepoint.com/personal/seyang_nvidia_com/_layouts/15/embed.aspx?UniqueId=09560ecb-f0b6-44b7-9913-033a853e890d&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
+  },
+  {
+    id: "step4",
+    step: "Step 4",
+    title: "Federated Kaplan-Meier",
+    description:
+      "Learn how to formulate a data analysis algorithm under a federated setting using Kaplan-Meier survival analysis.",
     button_text: "View Example",
     link: "https://github.com/NVIDIA/NVFlare/tree/main/examples/advanced/kaplan-meier-he",
     video: "https://nvidia-my.sharepoint.com/personal/ziyuex_nvidia_com/_layouts/15/embed.aspx?UniqueId=fd7e3e23-df96-40d4-a1ce-0440c98c3bd2&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
   },
   {
-    id: "step3",
-    step: "Step 3",
-    title: "From Simulation to Real-World",
+    id: "step5",
+    step: "Step 5",
+    title: "Learn More",
     description:
       "Finally, we cover the next steps in taking federated learning from simulation to the real world.",
     button_text: "View Notebook",
     link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
-    video: "https://www.youtube.com/embed/videoseries?si=Kh5pFJBo1PK8hR0H&amp;list=PLZHnYvH1qtObpziP9mZ3RYOefIj-6vfbV",
+    video: "https://nvidia-my.sharepoint.com/personal/seyang_nvidia_com/_layouts/15/embed.aspx?UniqueId=bd0c2cbe-514c-4bb8-a37a-230bba95eae0&embed=%7B%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
   },
-  // {
-  //   id: "step1",
-  //   step: "Step 1",
-  //   title: "Introduction to FLARE",
-  //   description:
-  //     "In this introductory guide, we cover the core concepts and fundamentals of FLARE to help get you started.",
-  //   button_text: "View Notebook",
-  //   link: "https://github.com/NVIDIA/NVFlare/blob/7055e1ad2adc97c114678f65f36b189f8641ef3e/examples/getting_started/pt/nvflare_pt_getting_started.ipynb",
-  //   video: "https://nvidia-my.sharepoint.com/personal/hroth_nvidia_com/_layouts/15/embed.aspx?UniqueId=7a6067cf-940c-4e68-9981-27e634c900d7&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
-  // },
-  // {
-  //   id: "step2",
-  //   step: "Step 2",
-  //   title: "Using the FLARE APIs",
-  //   description:
-  //     "Learn about the user-friendly Client, Controller, and Job APIs designed to easily enable programming for a federated setting.",
-  //   button_text: "View Notebook",
-  //   link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
-  //   video: "https://nvidia-my.sharepoint.com/personal/ziyuex_nvidia_com/_layouts/15/embed.aspx?UniqueId=fd7e3e23-df96-40d4-a1ce-0440c98c3bd2&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create",
-  // },
-  // {
-  //   id: "step3",
-  //   step: "Step 3",
-  //   title: "End-to-end Federated Learning Application",
-  //   description:
-  //     "Finally, we showcase a complete end-to-end example of how to use FLARE to create a federated learning application.",
-  //   button_text: "View Notebook",
-  //   link: "https://colab.research.google.com/github/NVIDIA/NVFlare/blob/main/examples/tutorials/flare_simulator.ipynb",
-  //   video: "https://www.youtube.com/embed/videoseries?si=Kh5pFJBo1PK8hR0H&amp;list=PLZHnYvH1qtObpziP9mZ3RYOefIj-6vfbV",
-  // },
 ];
 ---
 
@@ -78,55 +68,72 @@ const walkthrough = [
       </p>
     </div>
 
-    <!-- <div class="mt-5 mb-10 border-b border-gray-200 dark:border-gray-700">
-      <ul class="flex flex-wrap -mb-px text-xl font-medium text-center place-content-evenly space-x-10" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classes="text-nvidia hover:text-nvidia dark:text-nvidia-light dark:hover:text-nvidia-light border-nvidia dark:border-nvidia-light" data-tabs-inactive-classes="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
-          <li class="me-2" role="presentation">
-              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold" id="client-tab" data-tabs-target="#tutorials-wrapper" type="button" role="tab" aria-controls="profile" aria-selected="false">Tools</button>
-          </li>
-          <li class="me-2" role="presentation">
-              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="controller-tab" data-tabs-target="#tutorials-wrapper2" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Deployment</button>
-          </li>
-          <li class="me-2" role="presentation">
-              <button class="inline-block p-4 border-b-2 rounded-t-lg font-bold hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="job-tab" data-tabs-target="#tutorials-wrapper3" type="button" role="tab" aria-controls="settings" aria-selected="false">Examples</button>
-          </li>
-      </ul>
-    </div> -->
-
-    <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 overflow-hidden lg:mx-0 lg:max-w-none lg:grid-cols-3 mt-10" data-tabs-toggle="#default-styled-tab-content1" data-tabs-active-classes="" data-tabs-inactive-classes="opacity-60" role="tablist">
-      {
-        walkthrough.map((item) => (
-          <div role="presentation">
-            <button class="text-left h-44" id={item.step + "tab"} data-tabs-target={"#" + item.id} type="button" role="tab" aria-controls="profile" aria-selected="false">
-              <span class="flex items-center text-sm font-semibold leading-6 text-nvidia">
-                {item.step}
-                <div
-                  class="absolute -ml-2 h-px w-screen -translate-x-full bg-gray-900/10 sm:-ml-4 lg:static lg:-mr-6 lg:ml-8 lg:w-auto lg:flex-auto lg:translate-x-0"
-                  aria-hidden="true"
-                />
-              </span>
-              <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                {item.title}
-              </p>
-              <p class="mt-1 text-base leading-7 text-gray-600">
-                {item.description}
-              </p>
-            </button>
-            <p class="mt-10" role="presentation">
+    <!-- Walkthrough Cards -->
+    <div class="glide px-20 py-8 bg-gray-50 bg-opacity-60 rounded-3xl">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          {
+            walkthrough.map((item) => (
+            <li class="slider__frame glide__slide m-6 mb-10 p-4 transition-shadow ease-in-out rounded-lg shadow-md opacity-70" id={item.id} role="presentation">
+              <div class="text-left h-44" aria-controls="profile" aria-selected="false">
+                <span class="flex items-center text-sm font-semibold leading-6 text-nvidia relative">
+                  {item.step}
+                  <div
+                    class="flex-1 h-px bg-gray-900/10 ml-2"
+                    aria-hidden="true"
+                  />
+                </span>
+                <p class="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                  {item.title}
+                </p>
+                <p class="mt-1 text-base leading-7 text-gray-600">
+                  {item.description}
+                </p>
+              </div>
+              <p class="mt-16" role="presentation">
                 <a
                   href={item.link}
                   class="text-sm font-semibold leading-6 text-green-600">
                   {item.button_text} <span aria-hidden="true">→</span>
                 </a>
               </p>
+            </li>
+            ))
+          }
+        </ul>
+
+      </div>
+      <div class="glide__arrows" data-glide-el="controls">
+        <!-- Left Carousel Arrow -->
+        <button class="glide__arrow glide__arrow--left left-0 shadow-none border-none" data-glide-dir="<">
+          <svg class="stroke-gray-400 hover:stroke-nvidia w-12 h-12 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="m15 19-7-7 7-7"/>
+          </svg>
+        </button>
+        <!-- Carousel Bullets -->
+        <div class="glide__bullets" data-glide-el="controls[nav]">
+          {
+            walkthrough.map((item, index) => (
+              <button class="glide__bullet h-3 w-3 bg-gray-200 shadow-none" data-glide-dir={"="+index}></button>
+            ))
+          }
+        </div>
+        <!-- Right Carousel Arrow -->
+        <button class="glide__arrow glide__arrow--right right-0 shadow-none border-none" data-glide-dir=">">
+          <div class="h-14 w-14 flex justify-center items-center">
+            <svg class="stroke-gray-400 hover:stroke-nvidia w-12 h-12 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="m9 5 7 7-7 7"/>
+            </svg>
           </div>
-        ))
-      }
+        </button>
+      </div>
     </div>
 
+    <!-- Getting Started Videos -->
     <div>
       {
         walkthrough.map((item) => (
-          <div id={item.id} class="mt-24 flex flex-wrap place-content-center">
+          <div id={item.id+"-video"} class="mt-24 flex flex-wrap place-content-center hidden">
             <iframe
               class="h-3/4 w-3/4 aspect-video"
               src={item.video}
@@ -139,15 +146,68 @@ const walkthrough = [
       }
     </div>
   
-    <div class="mt-32 text-center">
-      <p class="text-lg mt-4 mb-8 text-slate-600 w-3/4 m-auto">
-        Now that you understand the basics of FLARE, explore our catalog of various tutorials and examples showcasing everything from the core features of FLARE   to advanced applications.
-      </p>
-      <a
-        href="/nvflare-web/catalog"
-        class="rounded-md bg-nvidia px-3.5 py-2.5 text-mg font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-nvidia"
-        >Tutorial Catalog -></a
-      >
-    </div>
   </div>
 </div>
+
+<script src="@glidejs/glide/dist/glide.min.js"></script>
+
+<script>
+  import Glide from '@glidejs/glide';
+
+  const config = {
+    type: 'slider',
+    animationDuration: 300,
+    rewind: true,
+    bound: false,
+    focusAt: 0,
+    startAt: 0,
+    perView: 3,
+    gap: 32,
+    peek: {before: 0, after: 50 },
+    dragThreshold: false,
+    breakpoints: {
+      1280: {
+        perView: 3,
+      },
+      1024: {
+        perView: 2,
+      },
+      768: {
+        perView: 1,
+      }
+    },
+  };
+  var glide = new Glide('.glide', config).mount();
+
+  glide.on('move.after', function(event) {
+    var slides = document.querySelectorAll('.glide__slide');
+    slides.forEach((slide) => {
+      var video = document.getElementById(slide.id + "-video");
+      if (slide.classList.contains('glide__slide--active')) {
+        slide.classList.replace("opacity-70", "opacity-100");
+        slide.classList.replace("shadow-md", "shadow-xl");
+        slide.classList.add("bg-white");
+        video?.classList.remove("hidden");
+      } else {
+        slide.classList.replace("opacity-100", "opacity-70");
+        slide.classList.replace("shadow-xl", "shadow-md");
+        slide.classList.remove("bg-white");
+        video?.classList.add("hidden");
+      }
+    });
+
+    var bullets = document.querySelectorAll('.glide__bullet');
+    bullets.forEach((bullet) => {
+      if (bullet.classList.contains('glide__bullet--active')) {
+        bullet.classList.add("ring-1")
+        bullet.classList.add("ring-gray-200")
+        bullet.classList.replace("bg-gray-200", "bg-white");
+      } else {
+        bullet.classList.add("ring-1")
+        bullet.classList.add("ring-gray-200")
+        bullet.classList.replace("bg-white", "bg-gray-200");
+      }
+    });
+  });
+
+</script>

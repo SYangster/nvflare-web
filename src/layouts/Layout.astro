@@ -20,7 +20,8 @@ const makeTitle = title ? title + " | " + "NVIDIA FLARE" : "NVIDIA FLARE";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico" /> -->
+    <link rel="icon" type="image/x-icon" href="images/nvidia16.ico">
     <meta name="generator" content={Astro.generator} />
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
@@ -31,6 +32,16 @@ const makeTitle = title ? title + " | " + "NVIDIA FLARE" : "NVIDIA FLARE";
     />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css">
+
+
+    <!-- <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css"/> -->
+    <!-- <link rel="stylesheet" href="node_modules/prismjs/components/prism-python.min.css" data-noprefix=""> -->
+    <!-- <link rel="stylesheet" href="node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css" data-noprefix="">
+    <link rel="stylesheet" href="node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css" data-noprefix=""> -->
 
   </head>
   <body>
@@ -44,5 +55,6 @@ const makeTitle = title ? title + " | " + "NVIDIA FLARE" : "NVIDIA FLARE";
       }
     </style>
     <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script src="prismjs/prism.js"></script>
   </body>
 </html>
