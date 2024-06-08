@@ -73,8 +73,8 @@ const walkthrough = [
       <div class="glide__track" data-glide-el="track">
         <ul class="glide__slides">
           {
-            walkthrough.map((item) => (
-            <li class="slider__frame glide__slide m-6 mb-10 p-4 transition-shadow ease-in-out rounded-lg shadow-md opacity-70" id={item.id} role="presentation">
+            walkthrough.map((item, index) => (
+            <li data-index={index} class="slider__frame glide__slide m-6 mb-10 p-4 transition-shadow ease-in-out rounded-lg shadow-md opacity-70" id={item.id} role="presentation">
               <div class="text-left h-44" aria-controls="profile" aria-selected="false">
                 <span class="flex items-center text-sm font-semibold leading-6 text-nvidia relative">
                   {item.step}
@@ -163,8 +163,8 @@ const walkthrough = [
     startAt: 0,
     perView: 3,
     gap: 32,
-    peek: {before: 0, after: 50 },
-    dragThreshold: false,
+    peek: {before: 100, after: 0},
+    dragThreshold: true,
     breakpoints: {
       1280: {
         perView: 3,
@@ -178,6 +178,16 @@ const walkthrough = [
     },
   };
   var glide = new Glide('.glide', config).mount();
+
+
+  let slides = document.querySelectorAll('.glide__slide');
+  for (let slide of slides) {
+      slide.addEventListener('click', function () {
+          let target = this;
+          let targetId = target.dataset.index;
+          glide.go('=' + targetId);
+      });
+  }
 
   glide.on('move.after', function(event) {
     var slides = document.querySelectorAll('.glide__slide');
