@@ -7,7 +7,6 @@ import "prismjs/components/prism-bash.js";
 import "prismjs/themes/prism.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min.css";
 import "prismjs/plugins/toolbar/prism-toolbar.min";
-// import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min";
 import "prismjs/plugins/line-highlight/prism-line-highlight.css";
 import "prismjs/plugins/line-highlight/prism-line-highlight.js";
 import 'prismjs/plugins/line-numbers/prism-line-numbers.js'
@@ -649,7 +648,7 @@ const frameworks = [
         framework: "pytorch",
         title: "Server Code (fedavg.py)",
         description:
-          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
+          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm using some helper functions from BaseFedAvg.",
         code: serverCode_pt,
         highlighted_lines: "7,17,23",
       },
@@ -659,7 +658,7 @@ const frameworks = [
         framework: "pytorch",
         title: "Job Code (fedavg_cifar10_pt_job.py)",
         description:
-          "Lastly we construct our FLARE job with our 'cifar10_pt_fl.py' client script and 'FedAvg' server controller. We then run the job with the FL simulator.",
+          "Lastly we construct our FLARE job with our 'cifar10_pt_fl.py' client script and 'FedAvg' server controller.",
         code: jobCode_pt,
       },
       {
@@ -668,7 +667,7 @@ const frameworks = [
         framework: "pytorch",
         title: "Run the Job",
         description:
-          "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+          "To run the job with the simulator, copy the code and execute the job script, or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
         code: runCode_pt,
       },
     ],
@@ -703,7 +702,7 @@ const frameworks = [
         framework: "lightning",
         title: "Server Code (fedavg.py)",
         description:
-          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
+          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm using some helper functions from BaseFedAvg..",
         code: serverCode_lt,
         highlighted_lines: "7,17,23",
       },
@@ -722,7 +721,7 @@ const frameworks = [
         framework: "lightning",
         title: "Run the Job",
         description:
-        "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+        "To run the job with the simulator, copy the code and execute the job script, or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
         code: runCode_lt,
       },
     ],
@@ -757,7 +756,7 @@ const frameworks = [
         framework: "tensorflow",
         title: "Server Code (fedavg.py)",
         description:
-          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm (using some commonly used helper functions in BaseFedAvg).",
+          "The ModelController API is used to write a federated routine with mechanisms for distributing and receiving models from clients. Here we implement the basic FedAvg algorithm using some helper functions from BaseFedAvg..",
         code: serverCode_tf,
         highlighted_lines: "7,17,23",
       },
@@ -776,7 +775,7 @@ const frameworks = [
         framework: "tensorflow",
         title: "Run the Job",
         description:
-        "To run the job with the simulator, copy the code and execute the job script or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
+        "To run the job with the simulator, copy the code and execute the job script, or run in Google Colab. Alternatively, export the job to a configuration and run the job in other modes, such as POC mode.",
         code: runCode_tf,
       },
     ],
@@ -793,9 +792,9 @@ const frameworks = [
         Example Code
       </h2>
       <p class="text-lg mt-4 text-slate-600 w-3/4 m-auto">
-        Quickly get started with these example code blocks below, where we showcase how simple it is to adapt
+        Try out these example code blocks below, where we showcase how simple it is to adapt
         a popular machine learning framework to a federated learning scenario with FLARE.
-        For more details, refer to the getting started guide above.
+        For more details, refer to the getting started walkthrough guide above.
       </p>
     </div>
 
@@ -904,7 +903,7 @@ const frameworks = [
 
     <div class="mt-32 text-center">
       <p class="text-lg mt-4 mb-8 text-slate-600 w-3/4 m-auto">
-        Now that you understand the basics of FLARE, explore our catalog of various tutorials and examples showcasing everything from the core features of FLARE   to advanced applications.
+        Now that you understand the basics of FLARE, explore our catalog of various tutorials and examples showcasing everything from the core features of FLARE to advanced applications.
       </p>
       <a
         href="/nvflare-web/catalog"
@@ -916,20 +915,14 @@ const frameworks = [
 </div>
 
 <!-- <script src="prism.js" type="text/javascript"></script> -->
-
 <!-- <script src="prismjs/prism.js" type="module"></script> -->
-
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-python.min.js"></script> -->
 
 <script src="prismjs/plugins/line-highlight/prism-line-highlight.min.js"></script>
-
 <script src="prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-
 <script src="prismjs/components/prism-python.min.js"></script>
-
 <script src="prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
 
-<!-- <script src="prismjs/plugins/custom-class/custom-class.js"></script> -->
 
 <script define:vars={{frameworks, GoogleColab}} type="module">
 
@@ -980,8 +973,6 @@ const frameworks = [
     });
   });
 
-  //location.reload();
-
   frameworkDropdown.addEventListener('click', setCodeBlocks);
   codeTabs.addEventListener('click', setCodeBlocks);
 
@@ -990,8 +981,6 @@ const frameworks = [
   // Create code element
   function createCodeElement(code_section) {
     const codeElement = document.createElement('div');
-
-    //tutorialElement.className = 'item space-y-2';
 
     var code_height = "";
     var colab_button = "";
@@ -1036,8 +1025,6 @@ const frameworks = [
     return codeElement;
   }
 
-  //location.reload();
-
   // Get active framework based on label of dropdown
   function getActiveFramework() {
     var activeFramework = "";
@@ -1066,13 +1053,10 @@ const frameworks = [
           element.code.classList.remove('hidden');
 
           Prism.highlightAllUnder(element.code);
-          console.log("after PRISM");
           // const codeElement = createCodeElement(element.section);
           // value.wrapper.appendChild(codeElement);
         } else {
           element.code.classList.add('hidden');
-          console.log("HIDDEN", element.code, element.code.classList);
-
         //   // element.code = "";
         //   //value.wrapper.removeChild(element.code)
         //   // wrapper = value.wrapper

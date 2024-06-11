@@ -372,7 +372,6 @@ const tutorials = [
 ]
 
 const level = ["beginner", "intermediate", "advanced"];
-// const flare_misc = ["simulation", "deployment", "management", "experiment-tracking", "security"];
 const flare_type = ["algorithm", "tools", "deployment"]
 const flare_api = ["client-api", "model-controller-api", "job-api", "learner", "executor", "controller"];
 const framework = ["pytorch", "tensorflow", "lightning", "xgboost", "sklearn", "numpy", "nemo", "graphsage", "pytorch-geometric", "monai", "huggingface"];
@@ -548,7 +547,7 @@ const tag_list = [
               <div id="highlights-bullets" class="glide__bullets" data-glide-el="controls[nav]">
                 {
                   highlights.map((item, index) => (
-                    <button class="glide__bullet h-3 w-3 bg-gray-200 shadow-none" data-glide-dir={"="+index}></button>
+                    <button class="glide__bullet h-3 w-3 bg-gray-200 ring-1 ring-gray-200 shadow-none" data-glide-dir={"="+index}></button>
                   ))
                 }
               </div>
@@ -600,12 +599,8 @@ const tag_list = [
     var bullets = document.getElementById('highlights-bullets');
     for (const bullet of bullets.children) {
       if (bullet.classList.contains('glide__bullet--active')) {
-        bullet.classList.add("ring-1")
-        bullet.classList.add("ring-gray-200")
         bullet.classList.replace("bg-gray-200", "bg-white");
       } else {
-        bullet.classList.add("ring-1")
-        bullet.classList.add("ring-gray-200")
         bullet.classList.replace("bg-white", "bg-gray-200");
       }
     };
